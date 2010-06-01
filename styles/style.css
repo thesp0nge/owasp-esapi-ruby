@@ -1,0 +1,21 @@
+h2 {
+	font-family: "Helvetica neue";
+}
+body {
+	width: 800px;
+	font-family: Georgia, Tahoma, Helvetica, "Sans serif";
+}
+
+#footer {
+	position: absolute;
+	bottom: 20px;
+	font-family: monaco, "courier new", courier, typewriter;
+	font-size: 0.7em;
+}
+
+#roadmap ul {
+	list-style: none;
+}
+#roadmap li #date {
+	font-family: typewriter, "courier new", monaco;
+}

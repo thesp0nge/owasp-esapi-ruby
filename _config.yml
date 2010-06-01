@@ -1,0 +1,21 @@
+# jekyll configuration
+
+destination: ./_site
+lsi: true # enable related posts
+markdown: maruku
+pygments: true # enable syntax highlight via Pygments
+permalink: /:year/:month/:day/:title/ # set custom permalink
+exclude: # exclude some files from being copied into _site
+  - rakefile.rb
+  - .gitignore
+  - README.textile
+
+# miscellaneous configuration
+title: "The Owasp Esapi for Ruby project"
+url: "http://thesp0nge.github.com/owasp-esapi-ruby/"
+# feed: "http://feeds.feedburner.com/alifity/rss"
+license:
+  type: "Creative Commons Attribution 3.0 License"
+  url: "http://creativecommons.org/licenses/by/3.0/"
+
+# end of configuration

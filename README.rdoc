@@ -25,10 +25,8 @@ The idea is to start looking at the concepts behind ESAPI and matching to Ruby
 classes, design the overall library architecture, the class public methods and
 stuff like that. 
 Ideally, 31st October deliverables will be: 
-1) "The Owasp Esapi Ruby development guide" (a book containing the behind the
-scenes of the library) 
-2) "The Owasp Esapi Ruby user guide" (a book containing how to use it and some
-examples)
+	* "The Owasp Esapi Ruby development guide" (a book containing the behind the scenes of the library) 
+	* "The Owasp Esapi Ruby user guide" (a book containing how to use it and some examples)
 
 * November 2010 - May 2011 - Project implementation. 
 All the interfaces, all the classes mentioned in the guides must be created
@@ -37,20 +35,21 @@ release early, release often mantra so we'll periodically release intermediate
 gem versions. 
 My idea is to release monthly.
 
-Owasp Esapi Ruby 1.0.0 will start Release Candidate the 31st May 2011.
-GPC will be prompted to assess the Project as Beta quality.
+	Owasp Esapi Ruby 1.0.0 will start Release Candidate the 31st May 2011.
+	GPC will be prompted to assess the Project as Beta quality.
 
 * June 2011 - July 2011 - Project consolidation. 
 Community will be pushed for comments, feature requests, "must have" that we
 must put in the first major version.
 
-Apis Freeze will be 31st July 2011
+	Apis Freeze will be 31st July 2011
 
 * August 2011 - Let's fix the bug!
 
-* September 2011 - The date of Owasp AppSec '11 Owasp Esapi Ruby 1.0.0 final
-  release.
-GPC will pe prompted to assess the project as Release quality.
+* September 2011 
+
+	The date of Owasp AppSec '11 Owasp Esapi Ruby 1.0.0 final release.
+	GPC will pe prompted to assess the project as Release quality.
 
 == Copyright
 

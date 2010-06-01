@@ -1,0 +1,15 @@
+h1. The Owasp Esapi for Ruby web site
+
+This is the README for the Owasp Esapi for Ruby web site.
+
+The web site is proudly hosted <a href="http://github.com"> by github</a> and
+you can reach it <a
+href="http://thesp0nge.github.com/owasp-esapi-ruby">here</a>.
+
+The web site is generated using <a
+href="http://github.com/mojombo/jekyll">jekill</a> and the tutorial from <a
+href="http://alifity.com/2010/04/from-wordpress-to-jekyll/">alifity.com</a>
+
+bq. Please note that this is a very quick and dirty web site version.
+
+

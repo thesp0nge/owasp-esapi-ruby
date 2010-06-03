@@ -1,0 +1,13 @@
+---
+title: Latests from the Esapi's cave
+layout: master
+---
+
+<h2>{{ page.title }}</h2>
+<h3>Latests news</h3>
+<ul>
+  {% for post in site.posts %}
+    <li><a href="{{ post.url }}">{{ post.title }}</a></li>
+  {% endfor %}
+</ul>
+<a hef="./index.html">Back</a>

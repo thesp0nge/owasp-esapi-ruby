@@ -8,7 +8,7 @@ active: news
 <div id="post">
 <ul>
   {% for post in site.posts %}
-    <li><a href="{{ post.url }}">{{ post.title }} - {{ post.date | date: "%d, %B %Y" }}</a></li>
+    <li><a href="{{site.url}}{{ post.url }}">{{ post.title }} - {{ post.date | date: "%d, %B %Y" }}</a></li>
   {% endfor %}
 </ul>
 </div>

@@ -20,17 +20,17 @@
 				{% if page.active == 'news' %}
 					<li class="active_tab"><a href="{{ site.url }}news.html">News</a></li>
 				{% else %}
-					<li><a href="news.html">News</a></li>
+					<li><a href="{{ site.url }}news.html">News</a></li>
 				{% endif %}
 				{% if page.active == 'roadmap' %}
 					<li class="active_tab"><a href="{{ site.url }}roadmap.html">Roadmap</a></li>
 				{% else %}
-					<li><a href="Roadmap.html">Roadmap</a></li>	
+					<li><a href="{{ site.url }}roadmap.html">Roadmap</a></li>	
 				{% endif %}
 				{% if page.active == 'index' %}
 				<li class="active_tab"><a href="{{ site.url }}index.html">Home</a></li>
 				{% else %}
-				<li><a href="index.html">Home</a></li>
+				<li><a href="{{ site.url }}index.html">Home</a></li>
 				{% endif %}
 			</ul>
 		</div>

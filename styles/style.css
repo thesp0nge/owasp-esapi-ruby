@@ -111,7 +111,7 @@ a:hover {
   height: 140px;
   left: 5px;
   top: 0px;
-  background: url(/images/logo.png) no-repeat;
+  background: url(../images/logo.png) no-repeat;
 }
 #navigation {
   position: absolute;
@@ -136,7 +136,7 @@ a:hover {
   text-shadow: #660000 0 1px 1px;
 }
 #navigation li a:hover { text-decoration: underline; }
-#navigation .active_tab { background: url(/images/active_tab.png) no-repeat top right; }
+#navigation .active_tab { background: url(../images/active_tab.png) no-repeat top right; }
 /* #navigation .active_tab a { background: url(/images/tab_left.png) no-repeat top left; } */
 #navigation .active_tab a:hover { text-decoration: none; }
 

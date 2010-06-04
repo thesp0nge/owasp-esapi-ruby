@@ -1,0 +1,8 @@
+---
+title: Hello world
+layout: post
+---
+
+<p>
+	Here we are, the <a href="http://github.com/thesp0nge/owasp-esapi-ruby">Owasp Esapi for Ruby</a> project has been started.
+</p>

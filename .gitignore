@@ -1,1 +1,3 @@
 _site/
+*.pxm
+.DS_Store

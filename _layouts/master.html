@@ -4,9 +4,39 @@
     <title>{{ page.title }}  - {{ site.title }}</title>
     <meta name="description" value="{{ page.description }}" />
     <meta name="keywords" value="{{ page.keywords }}" />
-    <link rel="stylesheet" type="text/css" href="/owasp-esapy-ruby/styles/style.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="{{ site.url }}styles/style.css" media="screen" />
   </head>
   <body>
+	<a href="http://github.com/thesp0nge/owasp-esapi-ruby"><img style="position: absolute; top: 0; right: 0; border: 0; z-index: 43;" src="http://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png" alt="Fork me on GitHub" /></a>
+	
+	<div id="header_wrapper">
+		<div id="header">
+			<a href="/" id="logo"></a>
+			
+			<ul id="navigation">
+				<li><a href="https://github.com/thesp0nge/owasp-esapi-ruby/tree">Source</a></li>
+				<li><a href="https://lists.owasp.org/mailman/listinfo/owasp-esapi-ruby">Discuss</a></li>
+				<!-- <li><a href="docs.html">Docs</a></li> Coming soon... really! :-) -->
+				{% if page.active == 'news' %}
+					<li class="active_tab"><a href="{{ site.url }}news.html">News</a></li>
+				{% else %}
+					<li><a href="news.html">News</a></li>
+				{% endif %}
+				{% if page.active == 'roadmap' %}
+					<li class="active_tab"><a href="{{ site.url }}roadmap.html">Roadmap</a></li>
+				{% else %}
+					<li><a href="Roadmap.html">Roadmap</a></li>	
+				{% endif %}
+				{% if page.active == 'index' %}
+				<li class="active_tab"><a href="{{ site.url }}index.html">Home</a></li>
+				{% else %}
+				<li><a href="index.html">Home</a></li>
+				{% endif %}
+			</ul>
+		</div>
+	</div>
+	
+	
     <div id="container">
       {{ content }}
     </div>

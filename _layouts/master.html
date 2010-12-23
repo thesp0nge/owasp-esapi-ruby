@@ -4,7 +4,7 @@
     <title>{{ page.title }}  - {{ site.title }}</title>
     <meta name="description" value="{{ page.description }}" />
     <meta name="keywords" value="{{ page.keywords }}" />
-    <link rel="stylesheet" type="text/css" href="{{ site.url }}styles/style.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="/styles/style.css" media="screen" />
   	<script type="text/javascript">
 
 	  var _gaq = _gaq || [];
@@ -50,11 +50,13 @@
 	</div>
 	
 	
-    <div id="container">
+   <div id="container">
       {{ content }}
-    </div>
+   </div>
 
-	
+	<div id="sidebar">
+		<p>Do you want to keep in touch with the gang? Join us to the <a href="irc://irc.freenode.net/owasp_esapi_ruby">#owasp_esapi_ruby</a> channel over irc.freenode.net </p>
+	</div>
 	
  	<div id="footer">
 		&copy; 2010 by <a href="mailto:thesp0nge@owasp.org">Paolo Perego</a> and the Owasp Esapi for Ruby team. {{ site.time }}

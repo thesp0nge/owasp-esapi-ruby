@@ -1,5 +1,13 @@
 = owasp-esapi-ruby
 
+== Kickstarting the project 
+
+Next February 8-11 it will be held in Lisbon, Portugal, the Owasp Summit 2011.
+During that event an hackathon it will be held to kickstart the project.
+The main goal we'll want to reach is to spread the esapi gem in namespaces and start writing rspec functional test before the real code will happen.
+
+If you want to join and help us, please drop me an email to thesp0nge@owasp.org.
+
 == Introduction
 
 The Owasp Esapi Ruby is a port for outstanding release quality Owasp Esapi
@@ -19,38 +27,6 @@ can have security into them.
   (if you want to have your own version, that is fine but bump version in a commit by itself I can ignore when I pull)
 * Send me a pull request. Bonus points for topic branches.
 
-== Roadmap
-* May to October 2010: Project documentation. 
-The idea is to start looking at the concepts behind ESAPI and matching to Ruby
-classes, design the overall library architecture, the class public methods and
-stuff like that. 
-Ideally, 31st October deliverables will be: 
-	* "The Owasp Esapi Ruby development guide" (a book containing the behind the scenes of the library) 
-	* "The Owasp Esapi Ruby user guide" (a book containing how to use it and some examples)
-
-* November 2010 - May 2011 - Project implementation. 
-All the interfaces, all the classes mentioned in the guides must be created
-and filled up with (working :-)) code. During those months, we will follow the
-release early, release often mantra so we'll periodically release intermediate
-gem versions. 
-My idea is to release monthly.
-
-	Owasp Esapi Ruby 1.0.0 will start Release Candidate the 31st May 2011.
-	GPC will be prompted to assess the Project as Beta quality.
-
-* June 2011 - July 2011 - Project consolidation. 
-Community will be pushed for comments, feature requests, "must have" that we
-must put in the first major version.
-
-	Apis Freeze will be 31st July 2011
-
-* August 2011 - Let's fix the bug!
-
-* September 2011 
-
-	The date of Owasp AppSec '11 Owasp Esapi Ruby 1.0.0 final release.
-	GPC will pe prompted to assess the project as Release quality.
-
 == Copyright
 
-Copyright (c) 2010 Paolo Perego. See LICENSE for details.
+Copyright (c) 2010 Owasp Esapi Ruby team. See LICENSE for details.

@@ -1,0 +1,31 @@
+---
+title: And we are back
+layout: post
+---
+
+<p>
+	Hi all, it's <a href="http://thesp0nge.github.com">Paolo</a> speaking from a foggy and grey Milan Tuesday morning.
+	<br />
+	It's been a long time since the last project activities but during those days, the project was collecting people interested in porting ESAPI library and crafting the most secure gem in the city.
+	<br />
+	So, here we are again and this time we're really kicking off the project starting from real.
+</p>
+<p>
+	From 8<sup>th</sup> to 11<sup>st</sup> of February I'll attend to <a href="http://www.owasp.org/index.php/Summit_2011">Owasp Summit 2011</a> in the beatyful city of Lisbon and during the summit the project will really jumpstarting.
+</p>
+<p>
+	During an appropriate working session (that isn't create at the time of writing this post, but Sarah will create one for us very soon), we will:
+	<ul>
+		<li>choose the gem naming convention;</li>
+		<li>create 10 separate module to cover Owasp Top 10 2010 risks;</li>
+		<li>create cucumber integration test scenarios;</li>
+		<li>create module specific rspec test cases;</li>
+		<li>implement the APIs to match the test bed (if we've some time left).</li>
+	</ul>
+	<br />
+	If you're attending the Summit, please check the event schedule in order to find the working session or simply sit down close to me saying "sp0nge, let's code some ruby".
+	<br />
+	If you're not attending the Summit, please let you free to add thesp0nge__at__gmail__dot__com as Gtalk buddy, let's chat, let's discuss and let's use the mailinglist for offline project related discussions.
+</p>
+
+	

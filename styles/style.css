@@ -1,12 +1,6 @@
 html {
 	width: 800px;
 }
-ul, li {
-  margin: 0;
-  padding: 0;
-}
-ol, ul { list-style: none; }
-
 h2 {
 	font-family: "Helvetica neue";
 }
@@ -14,38 +8,37 @@ h2 {
 body {
 	padding: 0;
 	width: 800px;
-	font-family: Georgia, Tahoma, Helvetica, "Sans serif";
-	font-size: 14px;
+	font-family: 'Neuton', Georgia, Tahoma, Helvetica, "Sans serif";
+	font-size: 1.2em;
 	line-height: 1.3em;
 	color: #333333;
 }
 
 h1 {
-  font-family: "Trebuchet MS", Arial, sans-serif;
-  font-size: 28px;
+  font-family: 'Yanone Kaffeesatz', "Trebuchet MS", Arial, sans-serif;
+  font-size: 3em;
   font-weight: normal;
   color: #333333;
   margin: 10px 0px 10px 45px;
 }
 
 h2 {
-  font-family: "Trebuchet MS", Arial, sans-serif;
-  font-size: 26px;
+  font-family: 'Yanone Kaffeesatz', "Trebuchet MS", Arial, sans-serif;
+  font-size: 2.5em;
   font-weight: bold;
   color: #b02c2f;
   margin: 0;
   padding-bottom: 0.4em;
 }
 h3 {
-  font-family: "Trebuchet MS", Arial, sans-serif;
-  font-size: 22px;
+  font-family: 'Yanone Kaffeesatz', "Trebuchet MS", Arial, sans-serif;
+  font-size: 2em;
   font-weight: bold;
   color: #324479;
   margin: 0;
   padding-bottom: 0.8em;
   clear: both;
 }
-p { padding-bottom: 1.5em; }
 a {
   color: #0d6dcc;
   text-decoration: none;
@@ -68,11 +61,14 @@ a:hover {
 	font-size: 0.8em;
 }
 
+.news_list_item {
+	margin-top: 5px;
+	font-family: 'Neucha', 'Inconsolata', 'Serif';
+}
 #footer {
-  	clear: both;
-  	padding: 25px 0;
-  	border-top: dashed 1px #cfcfcf;
-	font-family: monaco, "courier new", courier, typewriter;
+	
+	margin-top: 70px;
+	font-family: 'Inconsolata', 'Monaco', "courier new", courier, typewriter;
 	font-size: 0.7em;
   color: #b4b4b4;
 }
@@ -131,6 +127,10 @@ a:hover {
   top: 38px;
   width: 400px;
 }
+
+ul#navigation {
+	list-style-type: none;
+}
 #navigation li {
   float: right;
   height: 43px;
@@ -153,27 +153,18 @@ a:hover {
 #navigation .active_tab a:hover { text-decoration: none; }
 
 #post {
-  padding: 10px;
-  width: 800px;
-  margin-bottom: 20px;
+	padding: 10px;
+	width: 500px;
+	font-size: 1em;
   background-color: #F3D1DE;
-	font-size: 14px;
-	font-family: Georgia, Tahoma, Helvetica, "Sans serif";
   box-shadow: 0 0 5px #660000;
   -moz-box-shadow: 0 0 5px #660000;
   -webkit-box-shadow: 0 0 5px #660000;
 }
-#post ul {
-	font-size: 17px;
-	font-family: Georgia, Tahoma, Helvetica, "Sans serif";
-}
 
-#post h2 {
-  font-size: 18px;
-  font-weight: bold;
-}
+
 #post h3 {
-	font-size: 12px;
+	font-size: 1.2em;
 	font-style: italic;
 	color: #666666;
 	font-family: "Times New Roman", Serif;

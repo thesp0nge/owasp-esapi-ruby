@@ -4,7 +4,7 @@
     <title>{{ page.title }}  - {{ site.title }}</title>
     <meta name="description" value="{{ page.description }}" />
     <meta name="keywords" value="{{ page.keywords }}" />
-    <link rel="stylesheet" type="text/css" href="/styles/style.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="{{site:url}}/styles/style.css" media="screen" />
 		<link href='http://fonts.googleapis.com/css?family=Yanone+Kaffeesatz' rel='stylesheet' type='text/css'>
   	<link href='http://fonts.googleapis.com/css?family=Inconsolata' rel='stylesheet' type='text/css'>
 		<link href='http://fonts.googleapis.com/css?family=Neucha' rel='stylesheet' type='text/css'>
@@ -35,19 +35,19 @@
 				<li><a href="https://lists.owasp.org/mailman/listinfo/owasp-esapi-ruby">Discuss</a></li>
 				<!-- <li><a href="docs.html">Docs</a></li> Coming soon... really! :-) -->
 				{% if page.active == 'news' %}
-					<li class="active_tab"><a href="/news.html">News</a></li>
+					<li class="active_tab"><a href="{{site:url}}/news.html">News</a></li>
 				{% else %}
-					<li><a href="/news.html">News</a></li>
+					<li><a href="{{site:url}}/news.html">News</a></li>
 				{% endif %}
 				{% if page.active == 'roadmap' %}
-					<li class="active_tab"><a href="/roadmap.html">Roadmap</a></li>
+					<li class="active_tab"><a href="{{site:url}}/roadmap.html">Roadmap</a></li>
 				{% else %}
-					<li><a href="/roadmap.html">Roadmap</a></li>	
+					<li><a href="{{site:url}}/roadmap.html">Roadmap</a></li>	
 				{% endif %}
 				{% if page.active == 'index' %}
-				<li class="active_tab"><a href="/index.html">Home</a></li>
+				<li class="active_tab"><a href="{{site:url}}/index.html">Home</a></li>
 				{% else %}
-				<li><a href="/index.html">Home</a></li>
+				<li><a href="{{site:url}}/index.html">Home</a></li>
 				{% endif %}
 			</ul>
 		</div>

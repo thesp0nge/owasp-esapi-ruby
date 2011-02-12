@@ -1,13 +1,5 @@
 = owasp-esapi-ruby
 
-== Kickstarting the project 
-
-Next February 8-11 it will be held in Lisbon, Portugal, the Owasp Summit 2011.
-During that event an hackathon it will be held to kickstart the project.
-The main goal we'll want to reach is to spread the esapi gem in namespaces and start writing rspec functional test before the real code will happen.
-
-If you want to join and help us, please drop me an email to thesp0nge@owasp.org.
-
 == Introduction
 
 The Owasp Esapi Ruby is a port for outstanding release quality Owasp Esapi

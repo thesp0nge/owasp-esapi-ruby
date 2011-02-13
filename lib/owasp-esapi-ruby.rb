@@ -1,1 +1,2 @@
-require 'xss/sanitizer'
+require 'sanitizer/xss'
+require 'validator/zipcode'

@@ -2,10 +2,9 @@ require File.expand_path(File.dirname(__FILE__) + '/spec_helper')
 
 module Owasp
   module Esapi
-    module Ruby
       module Sanitizer
         describe Xss do
-          let(:filter) {Owasp::Esapi::Ruby::Sanitizer::Xss.new}
+          let(:filter) {Owasp::Esapi::Sanitizer::Xss.new}
           
           it "should leave untouched untainted strings" do
             untainted = "This is an unoffensive string"
@@ -62,6 +61,6 @@ module Owasp
           end
         end
       end
-    end
+   
   end
 end

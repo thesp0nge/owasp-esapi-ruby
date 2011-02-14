@@ -10,7 +10,7 @@ begin
     gem.email = "thesp0nge@owasp.org"
     gem.version = File.read(File.join(File.dirname(__FILE__), 'VERSION'))
     gem.homepage = "http://github.com/thesp0nge/owasp-esapi-ruby"
-    gem.authors = ["Paolo Perego"]
+    gem.authors = File.read(File.join(File.dirname(__FILE__), 'AUTHORS'))
     gem.add_development_dependency "rspec", ">= 1.2.9"
     gem.add_development_dependency "yard", ">= 0"
     

@@ -24,6 +24,7 @@ module Owasp
           end
           
           it "should validate a good Italian ZIP CODE equivalent" do
+            validator.matcher=Owasp::Esapi::Ruby::Validator::Zipcode::ITALIAN_ZIPCODE
             validator.validate("20100").should == true
           end
         end

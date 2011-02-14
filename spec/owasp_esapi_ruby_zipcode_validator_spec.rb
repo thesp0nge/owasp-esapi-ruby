@@ -26,6 +26,15 @@ module Owasp
             validator.matcher=Owasp::Esapi::Validator::Zipcode::ITALIAN_ZIPCODE
             validator.validate("20100").should == true
           end
+          
+          it "should discard an invalid Italian ZIP CODE equivalent" do
+            validator.matcher=Owasp::Esapi::Validator::Zipcode::ITALIAN_ZIPCODE
+            validator.validate("121").should == false
+          end
+          it "should discard an invalid Italian ZIP CODE equivalent" do
+            validator.matcher=Owasp::Esapi::Validator::Zipcode::ITALIAN_ZIPCODE
+            validator.validate("ipse dixit").should == false
+          end
         end
       end
     

@@ -38,6 +38,7 @@ module Owasp
         end
         private
           def rule1_sanitize(taint) 
+            untainted = taint
             # Start - RULE #1 - HTML Escape Before Inserting Untrusted Data into HTML Element Content
 
             # This *must* be the first substitution, otherwise it will substitute also & characters in 

@@ -3,6 +3,10 @@ module Owasp
   module Esapi
     module Validator
       class GenericValidator
+        
+        attr_accessor :matcher
+        
+        
         def validate(string, pattern)
           r = Regexp.new(pattern)
           

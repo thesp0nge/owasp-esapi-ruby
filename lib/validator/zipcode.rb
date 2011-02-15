@@ -23,7 +23,8 @@ module Owasp
         def validate(zipcode)
           r = Regexp.new(@matcher)
         
-          (zipcode =~ r) == 0
+          # (zipcode =~ r) == 0
+          !(zipcode =~ r).nil?
         end
       end
     end

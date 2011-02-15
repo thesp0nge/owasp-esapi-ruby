@@ -1,0 +1,19 @@
+---
+title: We have started
+layout: post
+---
+
+<p>
+	The <a href="http://www.owasp.org/index.php/Summit_2011">Summit 2011</a> is over and unfortunately I didn't attend. Last minute inconvenient.
+</p>
+<p>
+	However, as promised the development has been started and I'd like to thanks <a href="mailto:sal.scotto@gmail.com">Sal</a> and <a href="mailto:daniele.bellucci@gmail.com">Daniele</a> to join the development team. Sal is helping me in the overall project skeleton and Daniele is working on crypto related stuff.<br/>
+	If you want to join the core team, you just have to say hello using mailing list, fork the project and start hacking. <br />
+</p>
+<p>
+	Back to the code, we started dividing the stuff in validators and filters. We implemented the XSS filter and email and zip code validators with a generic validator acting as main validator super class.
+	<br />
+	We have a lot of work that needs to be done, we need to write a lot of validators and filters. 
+	<br/>
+	We really want to hit Release Candidate status next summer. I'll bet we will succeeded.
+</p> 

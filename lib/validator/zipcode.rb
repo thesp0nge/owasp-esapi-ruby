@@ -16,9 +16,6 @@ module Owasp
           @matcher = custom_regex unless custom_regex.nil?
         end
       
-        def matcher=(custom_regex) 
-          @matcher = custom_regex
-        end
       
         def validate(zipcode)
           r = Regexp.new(@matcher)

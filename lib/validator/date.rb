@@ -18,7 +18,7 @@ module Owasp
             # the s lenght is 3 due to regular expression checking.
             # we are also sure that there are no alfa chars in the string but the separator
             # let's see if this a meaningful date.
-            
+            return (is_valid_month?(s[0]) && is_valid_day?(s[1], s[0], s[3]) && is_valid_year?(s[3]))
           end
           false
         end
@@ -60,7 +60,7 @@ module Owasp
         end
         
         def is_valid_year?(y)
-          (y>=0)
+          (y.to_i>=0)
         end
           
       end

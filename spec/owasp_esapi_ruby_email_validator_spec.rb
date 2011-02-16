@@ -7,31 +7,31 @@ module Owasp
         let(:validator) {Owasp::Esapi::Validator::Email.new}
           
         it "should discard invalid email addresses" do
-          validator.validate("this is not an email address").should == false
+          validator.valid?("this is not an email address").should == false
         end
       
         it "should discard invalid email addresses" do
-          validator.validate("12313.it").should == false
+          validator.valid?("12313.it").should == false
         end
         
         it "should discard invalid email addresses" do
-          validator.validate("thesp0nge_at_owasp_dot_org").should == false
+          validator.valid?("thesp0nge_at_owasp_dot_org").should == false
         end
         
         it "should discard invalid email addresses" do
-          validator.validate("thesp0 nge@owasp.org").should == false
+          validator.valid?("thesp0 nge@owasp.org").should == false
         end
           
         it "should discard invalid email addresses" do
-          validator.validate("thesp0nge@owasp..org").should == false
+          validator.valid?("thesp0nge@owasp..org").should == false
         end
         
         it "should discard invalid email addresses" do
-          validator.validate("thesp0nge@ow asp.org").should == false
+          validator.valid?("thesp0nge@ow asp.org").should == false
         end
         
         it "should validate goot email addresses" do
-          validator.validate("thesp0nge@owasp.org").should == true 
+          validator.valid?("thesp0nge@owasp.org").should == true 
         end
       end
     end

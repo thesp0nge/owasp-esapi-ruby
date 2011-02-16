@@ -7,13 +7,15 @@ module Owasp
         attr_accessor :matcher
         
         # Creates a new generic validator.
-        # @param [String] matcher, the regular expression to be matched from this validator
+        # @param [String] matcher the regular expression to be matched from this validator
         def initialize(matcher)
           @matcher = matcher
         end
         
         # Validate a string against the matcher
-        def validate(string)
+        # @param [String] string the string that need to be validated
+        # @return [Boolean] true if the string matches the regular expression, false otherwise
+        def valid?(string)
           r = Regexp.new(@matcher)
           
           !(string =~ r).nil?

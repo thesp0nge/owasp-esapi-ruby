@@ -25,22 +25,33 @@ module Owasp
         
        
         def is_valid_month?(m)
-          ( 1 <= m.to_i =< 12 ) ? true:false
+          if ( 1<= m.to_i) && (m.to_i <= 12)
+            true
+          else
+            false
+          end
         end
         
         def is_valid_day?(d,m,y)
+          r = false
           case m.to_i
           when 1, 3, 5, 7, 8, 10, 12
-            r = ( 1 <= d.to_i =< 31 )
+            if (1 <= d.to_i) && ( d.to_i <= 31 )
+              r = true
+            end
           when 4, 6, 9, 11
-            r = ( 1 <= d.to_i =< 30 )
+            if (1 <= d.to_i) && ( d.to_i <= 30 )
+              r = true
+            end
           when 2
             if (y % 4 == 0) || ( y % 400 == 0)
               up_bound = 29
             else
               up_bound = 28
             end
-            r = ( 1 <= d.to_i =< up_bound )
+            if (1 <= d.to_i) && ( d.to_i <= up_bound )
+              r = true
+            end
           else 
             r = false
           end

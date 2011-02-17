@@ -17,7 +17,7 @@ module Owasp
           # Matcher is tuned to match a valid US ZIP CODE, that means either 5 numbers, or 5 numbers, 
           # plus a dash, then 4 more numbers.
           @matcher = US_ZIPCODE
-          @matcher = options["custom_regex"] unless (!options.nil? && options.has_key?("custom_regex"))
+          @matcher = options["custom_regex"] unless (options.nil? || ! options.has_key?("custom_regex"))
           super(@matcher)
         end
         

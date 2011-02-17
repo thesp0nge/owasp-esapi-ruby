@@ -14,11 +14,13 @@ module Owasp
         
         def valid?(date)
           unless ! super(date)
-            s = date.split('/')
-            # the s lenght is 3 due to regular expression checking.
-            # we are also sure that there are no alfa chars in the string but the separator
-            # let's see if this a meaningful date.
-            return (is_valid_month?(s[0]) && is_valid_day?(s[1], s[0], s[3]) && is_valid_year?(s[3]))
+            if @matcher == US_FORMAT_NUMERIC
+              s = date.split('/')
+              # the s lenght is 3 due to regular expression checking.
+              # we are also sure that there are no alfa chars in the string but the separator
+              # let's see if this a meaningful date.
+              return (is_valid_month?(s[0]) && is_valid_day?(s[1], s[0], s[3]) && is_valid_year?(s[3]))
+            end
           end
           false
         end

@@ -1,13 +1,23 @@
-= owasp-esapi-ruby
+= The Owasp ESAPI Ruby project
 
 == Introduction
 
-The Owasp Esapi Ruby is a port for outstanding release quality Owasp Esapi
+The Owasp ESAPI Ruby is a port for outstanding release quality Owasp ESAPI
 project to the Ruby programming language. 
 
-The idea is to build a Ruby gem containing the Esapi concepts
-implemented in Ruby classes so people using Ruby in their Rails application
-can have security into them.
+Ruby is now a famous programming language due to its Rails framework developed by David Heinemeier Hansson (http://twitter.com/dhh) that simplify the creation of a web application using a convention over configuration approach to simplify programmers' life.
+
+Despite Rails diffusion, there are a lot of Web framework out there that allow people to write web apps in Ruby (merb, sinatra, vintage) [http://accidentaltechnologist.com/ruby/10-alternative-ruby-web-frameworks/]. Owasp Esapi Ruby wants to bring all Ruby deevelopers a gem full of Secure APIs they can use whatever the framework they choose.
+
+== Why supporting only Ruby 1.9.2 and beyond?
+
+=== Regular expression engine
+(to be written)
+
+=== Dates and Time
+From "Programming Ruby 1.9"
+
+"As of Ruby 1.9.2, the range of dates that can be represented is no longer limited by the under- lying operating system’s time representation (so there’s no year 2038 problem). As a result, the year passed to the methods gm, local, new, mktime, and utc must now include the century—a year of 90 now represents 90 and not 1990."
 
 == Note on Patches/Pull Requests
  
@@ -21,4 +31,4 @@ can have security into them.
 
 == Copyright
 
-Copyright (c) 2010 Owasp Esapi Ruby team. See LICENSE for details.
+Copyright (c) 2011 the OWASP Foundation. See LICENSE for details.

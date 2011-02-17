@@ -23,18 +23,7 @@ module Owasp
         def sanitize(tainted)
           untainted = tainted
             
-          # Start - RULE #1 - HTML Escape Before Inserting Untrusted Data into HTML Element Content
-            
-          # This *must* be the first substitution, otherwise it will substitute also & characters in 
-          # valid HTML entities
-          untainted = untainted.gsub("&", "&amp;")
-          untainted = untainted.gsub("<", "&lt;")
-          untainted = untainted.gsub(">", "&gt;")
-          untainted = untainted.gsub("\"", "&quot;")
-          untainted = untainted.gsub("\'", "&#x27;")
-          untainted = untainted.gsub("/", "&#x2F;")
-            
-          # End - RULE #1 - HTML Escape Before Inserting Untrusted Data into HTML Element Content
+          untainted = rule1_sanitize(tainted)
             
           # Start - RULE #2 - Attribute Escape Before Inserting Untrusted Data into HTML Common Attributes
           # End - RULE #2 - Attribute Escape Before Inserting Untrusted Data into HTML Common Attributes
@@ -47,6 +36,23 @@ module Owasp
           
           untainted
         end
+        private
+          def rule1_sanitize(taint) 
+            untainted = taint
+            # Start - RULE #1 - HTML Escape Before Inserting Untrusted Data into HTML Element Content
+
+            # This *must* be the first substitution, otherwise it will substitute also & characters in 
+            # valid HTML entities
+            untainted = untainted.gsub("&", "&amp;")
+            untainted = untainted.gsub("<", "&lt;")
+            untainted = untainted.gsub(">", "&gt;")
+            untainted = untainted.gsub("\"", "&quot;")
+            untainted = untainted.gsub("\'", "&#x27;")
+            untainted = untainted.gsub("/", "&#x2F;")
+
+            # End - RULE #1 - HTML Escape Before Inserting Untrusted Data into HTML Element Content
+            untainted
+          end
       end
     end
   end

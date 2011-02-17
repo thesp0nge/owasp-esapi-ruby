@@ -1,0 +1,2 @@
+v 0.5.0
+	* validator/date:'june', 'july' and 'sept' fails when specified US_FORMAT_STRING_SHORT 

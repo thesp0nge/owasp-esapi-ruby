@@ -80,6 +80,52 @@ module Owasp
           validator.matcher=Owasp::Esapi::Validator::Date::US_FORMAT_STRING_SHORT
           validator.valid?("Jan 32, 2011").should == false
         end
+        
+        it "should validate a good date (US Format)" do
+          validator.matcher=Owasp::Esapi::Validator::Date::US_FORMAT_STRING_LONG
+          validator.valid?("January 15, 2011").should == true
+        end
+        
+        it "should discard a bad date (US Format)" do
+          validator.matcher=Owasp::Esapi::Validator::Date::US_FORMAT_STRING_LONG
+          validator.valid?("January 15 2011").should == false
+        end
+        
+        it "should discard a bad date (US Format)" do
+          validator.matcher=Owasp::Esapi::Validator::Date::US_FORMAT_STRING_LONG
+          validator.valid?("January, 15 2011").should == false
+        end
+        
+        it "should discard a bad date (US Format)" do
+          validator.matcher=Owasp::Esapi::Validator::Date::US_FORMAT_STRING_LONG
+          validator.valid?("January a, 2011").should == false
+        end
+        
+        it "should discard a bad date (US Format)" do
+          validator.matcher=Owasp::Esapi::Validator::Date::US_FORMAT_STRING_LONG
+          validator.valid?("January 32, 2011").should == false
+        end
+        
+        it "should validate a good date (US Format)" do
+          validator.matcher=Owasp::Esapi::Validator::Date::US_FORMAT_STRING_SHORT
+          validator.valid?("Feb, 29 2012").should == false
+        end
+        
+        it "should discard a bad date (US Format)" do
+          validator.matcher=Owasp::Esapi::Validator::Date::US_FORMAT_STRING_SHORT
+          validator.valid?("Feb, 29 2011").should == false
+        end
+        
+        it "should validate a good date (US Format)" do
+          validator.matcher=Owasp::Esapi::Validator::Date::US_FORMAT_STRING_LONG
+          validator.valid?("February, 29 2012").should == false
+        end
+        
+        it "should discard a bad date (US Format)" do
+          validator.matcher=Owasp::Esapi::Validator::Date::US_FORMAT_STRING_LONG
+          validator.valid?("February, 29 2011").should == false
+        end
+        
       end
     end
   end

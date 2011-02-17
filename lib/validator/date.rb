@@ -7,6 +7,7 @@ module Owasp
         
         US_FORMAT_NUMERIC = "^\\d{2}[/-]\\d{2}[/-]\\d{4}$"
         US_FORMAT_STRING_SHORT = "^\\w{3} \\d{2}[,][ ]\\d{4}"
+        US_FORMAT_STRING_LONG = "^\\w+ \\d{2}[,][ ]\\d{4}"
         
         def initialize(options=nil)
           @matcher = ""
@@ -22,7 +23,7 @@ module Owasp
               # let's see if this a meaningful date.
               return (is_valid_month?(s[0].to_i) && is_valid_day?(s[1].to_i, s[0].to_i, s[2].to_i) && is_valid_year?(s[2].to_i))
             end
-            if @matcher == US_FORMAT_STRING_SHORT
+            if @matcher == US_FORMAT_STRING_SHORT || @matcher == US_FORMAT_STRING_LONG
               s = date.gsub(',', '').split(' ')
               # I'm pretty sure about what's inside the array due to regular expression check.
               # s[0] is the month here, written in short alphanumeric form
@@ -48,9 +49,9 @@ module Owasp
             r = 4
           when 'may'
             r = 5
-          when 'june'
+          when 'jun', 'june'
             r = 6
-          when 'july'
+          when 'jul', 'july'
             r = 7
           when 'aug', 'august'
             r = 8

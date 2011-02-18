@@ -126,6 +126,24 @@ module Owasp
           validator.valid?("February, 29 2011").should == false
         end
         
+        it "should validate a good date (EU Format)" do
+          validator.matcher=Owasp::Esapi::Validator::Date::EU_FORMAT_NUMERIC
+          validator.eu_format = true
+          validator.valid?("31/12/2010").should == true
+        end
+        
+        it "should discard a bad date (US Format)"  do
+          validator.matcher=Owasp::Esapi::Validator::Date::EU_FORMAT_NUMERIC
+          validator.eu_format = true
+          validator.valid?("33/12/2010").should == false
+        end
+        
+        it "should discard a bad date (US Format)"  do
+          validator.matcher=Owasp::Esapi::Validator::Date::EU_FORMAT_NUMERIC
+          validator.eu_format = true
+          validator.valid?("31/13/2010").should == false
+        end
+        
       end
     end
   end

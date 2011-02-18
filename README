@@ -11,6 +11,10 @@ Despite Rails diffusion, there are a lot of Web framework out there that allow p
 
 == Why supporting only Ruby 1.9.2 and beyond?
 
+The OWASP Esapi Ruby gem will require at least version 1.9.2 of Ruby interpreter to make sure to have full advantages of the newer language APIs.
+
+In particular version 1.9.2 introduces radical changes in the following areas:
+
 === Regular expression engine
 (to be written)
 
@@ -18,6 +22,10 @@ Despite Rails diffusion, there are a lot of Web framework out there that allow p
 From "Programming Ruby 1.9"
 
 "As of Ruby 1.9.2, the range of dates that can be represented is no longer limited by the under- lying operating system’s time representation (so there’s no year 2038 problem). As a result, the year passed to the methods gm, local, new, mktime, and utc must now include the century—a year of 90 now represents 90 and not 1990."
+
+== Roadmap
+
+Please see ChangeLog file. 
 
 == Note on Patches/Pull Requests
  

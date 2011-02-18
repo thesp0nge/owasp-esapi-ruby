@@ -57,27 +57,27 @@ module Owasp
         end
         
         it "should validate a good date (US Format)" do
-          validator.matcher="MMM DD, YYYY"
+          validator.matcher=Owasp::Esapi::Validator::Date::US_FORMAT_STRING_SHORT
           validator.valid?("Jan 15, 2011").should == true
         end
         
         it "should discard a bad date (US Format)" do
-          validator.matcher="MMM DD, YYYY"
+          validator.matcher=Owasp::Esapi::Validator::Date::US_FORMAT_STRING_SHORT
           validator.valid?("Jan 15 2011").should == false
         end
         
         it "should discard a bad date (US Format)" do
-          validator.matcher="MMM DD, YYYY"
+          validator.matcher=Owasp::Esapi::Validator::Date::US_FORMAT_STRING_SHORT
           validator.valid?("Jan, 15 2011").should == false
         end
         
         it "should discard a bad date (US Format)" do
-          validator.matcher="MMM DD, YYYY"
+          validator.matcher=Owasp::Esapi::Validator::Date::US_FORMAT_STRING_SHORT
           validator.valid?("Jan a, 2011").should == false
         end
         
         it "should discard a bad date (US Format)" do
-          validator.matcher="MMM DD, YYYY"
+          validator.matcher=Owasp::Esapi::Validator::Date::US_FORMAT_STRING_SHORT
           validator.valid?("Jan 32, 2011").should == false
         end
       end

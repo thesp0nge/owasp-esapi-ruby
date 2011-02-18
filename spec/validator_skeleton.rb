@@ -144,7 +144,6 @@ module Owasp
           validator.is_valid_input("Login user name",input,input_type,max_len,allow_null,canonicalize)
           validator.get_valid_input("Login user name",input,input_type,max_len,allow_null,canonicalize)
         end
-
       end
     end
   end

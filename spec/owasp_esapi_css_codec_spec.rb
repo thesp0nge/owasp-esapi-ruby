@@ -16,8 +16,8 @@ module Owasp
             codec.decode(s).should == "\uFFFDg"
           end
           it "should encode 0x100 as \\100" do
-            s = 0x100
-            m = codec.encode([],s)
+            s = 0x100.chr(Encoding::UTF_8)
+            m = codec.encode([],s[0])
             m.should == "\\100 "
           end
 

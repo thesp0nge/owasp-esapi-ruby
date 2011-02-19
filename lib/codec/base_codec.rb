@@ -34,12 +34,9 @@ module Owasp
   returnt eh encoded form of the data
 =end
         def encode(immune, input)
-          # if we got a fixnum assume its a single character
-          if input.instance_of?(Fixnum)
-            return encode_char(immune,input)
-          end
           encoded_string = ''
-          input.chars do |c|
+          encoded_string.encode!(Encoding::UTF_8)
+          input.encode(Encoding::UTF_8).chars do |c|
             encoded_string << encode_char(immune,c)
           end
           return encoded_string
@@ -57,11 +54,7 @@ module Owasp
           if c.nil?
             return nil
           end
-
-          if c.instance_of?(Fixnum)
-            return c.to_h
-          end
-          b = c.getbyte(0)
+          b = c[0].ord
           if b < 0xff
             @@hex_codes[b]
           else

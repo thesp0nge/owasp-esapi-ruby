@@ -2,6 +2,19 @@
 # Case Codec class
 # This base class handles several areas need by sub codecs
 #
+
+# Extend Numbers and add a to_hex method for convience
+class Fixnum
+  def to_h
+    to_s(16)
+  end
+end
+class Bignum
+  def to_h
+    to_s(16)
+  end
+end
+
 module Owasp
   module Esapi
     module Codec
@@ -12,15 +25,16 @@ module Owasp
           if (c >= 0x30 and c <= 0x39) or (c >= 0x41 and c <= 0x5A) or (c >= 0x61 and c <= 0x7A)
             @@hex_codes[c] = nil
           else
-            @@hex_codes[c] = c.to_s(16)
+            @@hex_codes[c] = c.to_h
           end
         end
 =begin
-  Encode(immune,input)
   immune is expecting an array of safe characters which are immune form encoding
   input is the data to encode.
+  returnt eh encoded form of the data
 =end
         def encode(immune, input)
+          # if we got a fixnum assume its a single character
           if input.instance_of?(Fixnum)
             return encode_char(immune,input)
           end
@@ -30,27 +44,34 @@ module Owasp
           end
           return encoded_string
         end
-
+=begin
+  sub classes should implement this method to mark how to encode a single character
+=end
         def encode_char(immune, input)
           return input
         end
-
+=begin
+  helper method for codecs to get the hex value of a character
+=end
         def hex_value(c)
           if c.nil?
             return nil
           end
 
           if c.instance_of?(Fixnum)
-            return c.to_s(16)
+            return c.to_h
           end
-
-          if c.getbyte(0) < 0xff
-            @@hex_codes[c.getbyte(0)]
+          b = c.getbyte(0)
+          if b < 0xff
+            @@hex_codes[b]
           else
-            c.getbyte(0).to_s(16)
+            b.to_h
           end
         end
-
+=begin
+  input is the data you wish to decode
+  decode the data
+=end
         def decode(input)
           decoded_string = ''
           seekable = PushableString.new(input)
@@ -64,7 +85,10 @@ module Owasp
           end
           return decoded_string
         end
-
+=begin
+  input is a PushableString
+  subclasses should override this method
+=end
         def decode_char(input)
           return input
         end

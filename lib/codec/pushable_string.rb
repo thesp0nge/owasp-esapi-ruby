@@ -9,7 +9,7 @@ module Owasp
   module Esapi
     module Codec
       class PushableString
-        attr_reader :index
+        attr :index
         def initialize(string)
           @string = string
           @index = 0
@@ -32,7 +32,7 @@ module Owasp
           if @index >= @string.size
             return nil
           end
-          t = @string[@index].chr
+          t = @string[@index]
           @index += 1
           return t
         end
@@ -58,7 +58,7 @@ module Owasp
           if @index >= @string.size
             return false
           end
-          return @string[@index].chr == c
+          return @string[@index] == c
 
         end
 
@@ -75,7 +75,7 @@ module Owasp
           if @index >= @string.size
             return nil
           end
-          return @string[@index].chr
+          return @string[@index]
         end
 
         def mark

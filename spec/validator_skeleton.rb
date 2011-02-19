@@ -66,12 +66,12 @@ module Owasp
         it "should validate my html is safe" do
           html = "<head><body>test</body></html>"
           max_len = 50
-          validator.is_fase_html("HTML",html,max_len,allow_null)
+          validator.is_safe_html("HTML",html,max_len,allow_null)
           validator.get_safe_html("HTML",html,max_len,allow_null)
         end
 
         # validte a path on the host
-        it "should validate my direcroty path" do
+        it "should validate my directory path" do
           path = "/my/path"
           root = "/my"
           validator.is_valid_directory("PATH",path,root,allow_null)

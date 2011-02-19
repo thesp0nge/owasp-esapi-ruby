@@ -9,6 +9,7 @@ module Owasp
   module Esapi
     module Codec
       class CssCodec < BaseCodec
+
         def encode_char(immune, input)
           if immune.include?(input)
             return input

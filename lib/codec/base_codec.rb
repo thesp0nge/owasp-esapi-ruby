@@ -1,25 +1,12 @@
 #
-# This code is a direct port of the OWASP ESAPI API
+# Case Codec class
+# This base class handles several areas need by sub codecs
 #
-# Original Author: Jeff Williams
-# Port Author: Sal ScottoDiLuzio
-#
-# monkey patch 1.8 so we can run in 1.8 or 1.9 ruby
-
-if RUBY_VERSION.to_f < 1.9
-$KCODE='u'
-  class String
-    def getbyte(index)
-      return self[index]
-    end
-  end
-end
-
-
 module Owasp
   module Esapi
     module Codec
       class BaseCodec
+        # a List of Hex codes that cover non alpha numeric values
         @@hex_codes = []
         for c in (0..255) do
           if (c >= 0x30 and c <= 0x39) or (c >= 0x41 and c <= 0x5A) or (c >= 0x61 and c <= 0x7A)
@@ -28,7 +15,11 @@ module Owasp
             @@hex_codes[c] = c.to_s(16)
           end
         end
-
+=begin
+  Encode(immune,input)
+  immune is expecting an array of safe characters which are immune form encoding
+  input is the data to encode.
+=end
         def encode(immune, input)
           if input.instance_of?(Fixnum)
             return encode_char(immune,input)

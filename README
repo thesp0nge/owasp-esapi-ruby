@@ -18,6 +18,14 @@ In particular version 1.9.2 introduces radical changes in the following areas:
 === Regular expression engine
 (to be written)
 
+=== UTF-8 support
+Unicode support in 1.9.2 is much better and provides better support for character set encoding/decoding
+* All strings have an additional chunk of info attached: Encoding
+* String#size takes encoding into account – returns the encoded character count
+* You can get the raw datasize
+* Indexed access is by encoded data – characters, not bytes
+* You can change encoding by force but it doesn’t convert the data
+
 === Dates and Time
 From "Programming Ruby 1.9"
 

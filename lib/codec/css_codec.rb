@@ -21,7 +21,8 @@ module Owasp
           # check for alpha numeric
           hex = hex_value(input)
           unless hex.nil? or hex.empty?
-            return "\\#{hex}"
+            # add a space at end to terminate under css
+            return "\\#{hex} "
           end
           return input
         end

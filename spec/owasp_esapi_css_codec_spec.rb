@@ -8,13 +8,17 @@ module Owasp
 
           it "should encode my '<' as \\3c" do
             m = codec.encode([],"<")
-            m.should == '\\3c'
+            m.should == '\\3c '
           end
 
+          it "should decode \\abcdefg and replace the invliad code point" do
+            s = "\\abcdefg"
+            codec.decode(s).should == "\uFFFDg"
+          end
           it "should encode 0x100 as \\100" do
             s = 0x100
             m = codec.encode([],s)
-            m.should == "\\100"
+            m.should == "\\100 "
           end
 
           it "should decode '\\<' to '<'" do

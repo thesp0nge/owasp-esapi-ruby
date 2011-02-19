@@ -37,12 +37,12 @@ module Owasp
 
         it "should css encode <script> as '\\3cscript\\3e" do
           result = encoder.encode_for_css("<script>")
-          result.should == "\\3cscript\\3e"
+          result.should == "\\3c script\\3e "
         end
 
         it "should css encode punction properly" do
          result = encoder.encode_for_css("!@$%()=+{}[]")
-         result.should == "\\21\\40\\24\\25\\28\\29\\3d\\2b\\7b\\7d\\5b\\5d"
+         result.should == "\\21 \\40 \\24 \\25 \\28 \\29 \\3d \\2b \\7b \\7d \\5b \\5d "
        end
 
        # JS Encoder

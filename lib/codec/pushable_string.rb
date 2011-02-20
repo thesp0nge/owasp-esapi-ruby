@@ -36,6 +36,16 @@ module Owasp
           return t
         end
 =begin
+  get the next hex token in the string or nil
+=end
+        def next_hex
+          c = self.next()
+          return nil if c.nil?
+          return c if is_hex(c)
+          return nil
+        end
+
+=begin
   Check to see if we have another token on the stream
 =end
         def next?

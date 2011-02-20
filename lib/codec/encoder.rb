@@ -15,7 +15,7 @@ module Owasp
       @@codecs = []
       @@html_codec = Owasp::Esapi::Codec::HtmlCodec.new
       @@xml_codec = nil
-      @@percent_code = nil
+      @@url_codec = Owasp::Esapi::Codec::UrlCodec.new
       @@js_codec = nil
       @@vb_codec = nil
       @@css_codec = Owasp::Esapi::Codec::CssCodec.new
@@ -30,6 +30,7 @@ module Owasp
           # setup some defaults codecs
           @@codecs << @@css_codec
           @@codecs << @@html_codec
+          @@codecs << @@url_codec
         end
       end
 =begin

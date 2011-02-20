@@ -7,6 +7,29 @@ module Owasp
 
       # Sanitize
       it "should sanitize input" do
+        # test null value
+        encoder.canonicalize(nil).should == nil
+        # test exception paths
+        encoder.sanitize("%25",true).should == '%'
+        encoder.sanitize("%25",false).should == '%'
+        # test HTML, url and CSS codecs
+        encoder.canonicalize("%25F").should == "%F"
+        encoder.canonicalize("%3c").should == "<"
+        encoder.canonicalize("%3C").should == "<"
+        encoder.canonicalize("%X1").should == "%X1"
+        encoder.canonicalize("%25F").should == "%F"
+        encoder.canonicalize("%25F").should == "%F"
+        encoder.canonicalize("%25F").should == "%F"
+        encoder.canonicalize("%25F").should == "%F"
+        encoder.canonicalize("%25F").should == "%F"
+        encoder.canonicalize("%25F").should == "%F"
+        encoder.canonicalize("%25F").should == "%F"
+        encoder.canonicalize("%25F").should == "%F"
+        encoder.canonicalize("%25F").should == "%F"
+        encoder.canonicalize("%25F").should == "%F"
+        encoder.canonicalize("%25F").should == "%F"
+        encoder.canonicalize("%25F").should == "%F"
+        encoder.canonicalize("%25F").should == "%F"
         encoder.canonicalize("\\3c").should == "<"
         encoder.canonicalize("\\03c").should == "<"
         encoder.canonicalize("\\003c").should == "<"
@@ -64,7 +87,11 @@ module Owasp
         encoder.canonicalize("&#37").should == "%"
         encoder.canonicalize("&#37b").should == "%b"
         encoder.canonicalize("%3Cscript%3Ealert%28%22hello%22%29%3B%3C%2Fscript%3E") == "<script>alert(\"hello\");</script>"
-        encoder.canonicalize("%3Cscript&#x3E;alert%28%22hello&#34%29%3B%3C%2Fscript%3E") == "<script>alert(\"hello\");</script>"
+        begin
+          encoder.canonicalize("%3Cscript&#x3E;alert%28%22hello&#34%29%3B%3C%2Fscript%3E") == "<script>alert(\"hello\");</script>"
+        rescue IntrustionException => e
+          puts e.log_message
+        end
         pending("Add JS, Percentage")
       end
       # Canocialize
@@ -72,8 +99,47 @@ module Owasp
         pending "Add test once other codecs in place"
       end
       # Double canonicalize
-      it "should canonicalize double encoded inputs" do
-        pending("Add once other codecs in place")
+      it "should canonicalize double encoded inputs and send warnings" do
+
+        encoder.sanitize("&#x26;lt&#59",false).should == "<" # double entity
+        encoder.sanitize("%255c",false).should == "\\" # double percent
+        encoder.sanitize("%2525",false).should == "%" #double percent
+        encoder.sanitize("%26lt%3b",false).should == "<" #double percent
+        # multi scheme double encoding
+        encoder.sanitize("%26lt%3b",false).should == "<"
+        encoder.sanitize("&#x25;26",false).should == "&"
+        # nested encoding
+        encoder.sanitize("%253c", false).should == "<"
+        encoder.sanitize("%%33%63", false).should == "<"
+        encoder.sanitize("%%33c", false).should == "<"
+        encoder.sanitize("%3%63", false).should == "<"
+        encoder.sanitize("&&#108;t;", false).should == "<"
+        encoder.sanitize("&%6ct;", false).should == "<"
+        encoder.sanitize("%&#x33;c", false).should == "<"
+        # multi encoding test
+        encoder.sanitize("%25 %2526 %26#X3c;script&#x3e; &#37;3Cscript%25252525253e", false).should == "% & <script> <script>"
+        encoder.sanitize("%26lt; %26lt; &#X25;3c &#x25;3c %2526lt%253B %2526lt%253B %2526lt%253B", false).should == "< < < < < < <"
+        # strict mode
+        begin
+          encoder.sanitize("%26lt; %26lt; &#X25;3c &#x25;3c %2526lt%253B %2526lt%253B %2526lt%253B", true).should == "< < < < < < <"
+        rescue IntrustionException => e
+          # expect a warning
+          e.message.should == "Input validation failure"
+        end
+
+        begin
+          encoder.sanitize("%253Cscript",true).should == "<script"
+         rescue IntrustionException => e
+            # expect a warning
+            e.message.should == "Input validation failure"
+          end
+
+        begin
+          encoder.sanitize("&#37;3Cscript",true).should == "<script"
+         rescue IntrustionException => e
+            # expect a warning
+            e.message.should == "Input validation failure"
+          end
       end
 
 

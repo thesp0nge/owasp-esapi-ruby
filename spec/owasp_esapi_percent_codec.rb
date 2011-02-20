@@ -4,7 +4,7 @@ module Owasp
   module Esapi
       module Codec
         describe Codec do
-          let (:codec) { Owasp::Esapi::Codec::UrlCodec.new }
+          let (:codec) { Owasp::Esapi::Codec::PercentCodec.new }
 
           it "should decode %3c as <" do
             codec.decode("%3c").should == "<"
@@ -21,6 +21,10 @@ module Owasp
 
           it "should decode %25F as %F" do
             codec.decode("%25F").should == "%F"
+          end
+
+          it "should encode 'Stop!' said Fred as %27Stop%21%27+said+Fred" do
+            codec.encode([],"'Stop!' said Fred").should == "%27Stop%21%27+said+Fred"
           end
 
         end

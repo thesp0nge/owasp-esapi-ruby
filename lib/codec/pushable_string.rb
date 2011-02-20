@@ -39,12 +39,20 @@ module Owasp
   get the next hex token in the string or nil
 =end
         def next_hex
-          c = self.next()
+          c = self.next
           return nil if c.nil?
           return c if is_hex(c)
           return nil
         end
-
+=begin
+  get the next octal token int eh string or nil
+=end
+        def next_octal
+          c = self.next
+          return nil if c.nil?
+          return c if is_octal(c)
+          return nil
+        end
 =begin
   Check to see if we have another token on the stream
 =end
@@ -91,6 +99,14 @@ module Owasp
         def is_hex(c)
           return false if c.nil?
           c =~ /[a-fA-F0-9]/
+        end
+=begin
+  check if a given character is an octal character
+  means 0 through 7
+=end
+        def is_octal(c)
+          return false if c.nil?
+          c =~ /[0-7]/
         end
 =begin
   reset the index back to the mark

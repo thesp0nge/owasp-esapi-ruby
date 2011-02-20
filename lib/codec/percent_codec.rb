@@ -5,13 +5,15 @@
 module Owasp
   module Esapi
     module Codec
-      class UrlCodec < BaseCodec
+      class PercentCodec < BaseCodec
 
 =begin
   encode each character outsize of the RFC raneg as a hex value
 =end
         def encode_char(immune,input)
           return input if input =~ /[a-zA-Z0-9_.-]/
+          # RFC compliance
+          return "+" if input == " "
           val = ''
           input.each_byte do |b|
             val << '%' << b.ord.to_h.upcase

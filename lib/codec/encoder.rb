@@ -13,7 +13,7 @@ module Owasp
       IMMUNE_XMLATTR    = [ ',', '.', '-', '_' ]
       IMMUNE_XPATH      = [ ',', '.', '-', '_', ' ' ]
       @@codecs = []
-      @@html_codec = nil
+      @@html_codec = Owasp::Esapi::Codec::HtmlCodec.new
       @@xml_codec = nil
       @@percent_code = nil
       @@js_codec = nil
@@ -29,6 +29,7 @@ module Owasp
         else
           # setup some defaults codecs
           @@codecs << @@css_codec
+          @@codecs << @@html_codec
         end
       end
 =begin
@@ -39,9 +40,8 @@ module Owasp
 =end
       def canonicalize(input)
         # if the input is nil, just return nil
-        if input.nil?
-          return nil
-        end
+        return nil if input.nil?
+
         # check teh ESAPI config and figure out if we want strict encoding
         return sanitize(input,Owasp::Esapi.security_config.ids?)
       end
@@ -52,9 +52,7 @@ module Owasp
 =end
       def sanitize(input, strict)
         # check input again, as someone may just wana call sanitize
-        if input.nil?
-          return nil
-        end
+        return nil if input.nil?
         working = input
         found_codec = nil
         mixed_count = 1
@@ -106,11 +104,23 @@ module Owasp
   input is the data you wish to encode for CSS usage
 =end
       def encode_for_css(input)
-        if input.nil?
-          return nil
-        end
+        return nil if input.nil?
         @@css_codec.encode(IMMUNE_CSS,input)
       end
+
+      def encode_for_html(input)
+        return nil if input.nil?
+        @@html_codec.encode(IMMUNE_HTML,input)
+      end
+      def dencode_for_html(input)
+        return nil if input.nil?
+        @@html_codec.decode(input)
+      end
+      def encode_for_html_attr(input)
+        return nil if input.nil?
+        @@html_codec.encode(IMMUNE_HTMLATTR,input)
+      end
+
     end
   end
 end

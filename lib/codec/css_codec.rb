@@ -15,15 +15,11 @@ module Owasp
 =end
         def encode_char(immune, input)
           # check immune
-          if immune.include?(input)
-            return input
-          end
+          return input if immune.include?(input)
           # check for alpha numeric
           hex = hex_value(input)
-          unless hex.nil? or hex.empty?
-            # add a space at end to terminate under css
-            return "\\#{hex} "
-          end
+          # add a space at end to terminate under css
+          return "\\#{hex} " unless hex.nil? or hex.empty?
           return input
         end
 
@@ -88,13 +84,9 @@ module Owasp
             end
           end
           # handle the skip ahead. Ruby case doesnt allow for fall through so we inlined the small setup
-          if second == "\n" || second == "\f" || second == "\u0000" || fallthrough
-            return decode_char(input)
-          end
+          return decode_char(input) if second == "\n" || second == "\f" || second == "\u0000" || fallthrough
           # non hex test
-          if !input.is_hex(second)
-            return second
-          end
+          return second if !input.is_hex(second)
           # check for 6 hex digits for rule 3
           tmp = second
           for i in 1..5 do
@@ -111,11 +103,8 @@ module Owasp
           # check the codepoint and if outside of range, return teh replacement
           begin
             i = tmp.hex
-            if i >= 0x000 and i <= 0x10fff
-              return i.chr(Encoding::UTF_8)
-            else
-              return "\ufffd"
-            end
+            return i.chr(Encoding::UTF_8) if i >= START_CODE_POINT and i <= END_CODE_POINT
+            return "\ufffd"
           rescue Exception => e
             raise EncodingError.new("Received an exception while parsing a string verified to be hex")
           end

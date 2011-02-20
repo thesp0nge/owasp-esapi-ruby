@@ -19,6 +19,8 @@ module Owasp
   module Esapi
     module Codec
       class BaseCodec
+        START_CODE_POINT = 0x000
+        END_CODE_POINT = 0x10fff
         # a List of Hex codes that cover non alpha numeric values
         @@hex_codes = []
         for c in (0..255) do
@@ -45,15 +47,13 @@ module Owasp
   sub classes should implement this method to mark how to encode a single character
 =end
         def encode_char(immune, input)
-          return input
+          input
         end
 =begin
   helper method for codecs to get the hex value of a character
 =end
         def hex_value(c)
-          if c.nil?
-            return nil
-          end
+          return nil if c.nil?
           b = c[0].ord
           if b < 0xff
             @@hex_codes[b]
@@ -83,8 +83,19 @@ module Owasp
   subclasses should override this method
 =end
         def decode_char(input)
-          return input
+          input
         end
+=begin
+  basic min funtion
+=end
+        def min(a,b)
+          if a > b
+            return b
+          else
+            return a
+          end
+        end
+
       end
     end
   end

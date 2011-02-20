@@ -27,15 +27,10 @@ module Owasp
             @push = nil
             return t
           end
-          if @input.nil?
-            return nil
-          end
-          if @input.size == 0
-            return nil
-          end
-          if @index >= @input.size
-            return nil
-          end
+          return nil if @input.nil?
+          return nil if @input.size == 0
+          return nil if @index >= @input.size
+
           t = @input[@index]
           @index += 1
           return t
@@ -56,37 +51,20 @@ module Owasp
   Peek into teh stream and see if the next character is the one in question
 =end
         def peek?(c)
-          if ! @push.nil? and @push == c
-            return true
-          end
-          if @input.empty?
-            return false
-          end
-          if @input.nil?
-            return false
-          end
-          if @index >= @input.size
-            return false
-          end
+          return true if ! @push.nil? and @push == c
+          return false if @input.empty?
+          return false if @input.nil?
+          return false if @index >= @input.size
           return @input[@index] == c
-
         end
 =begin
   Peek into the stream and fetch teh next character without moving the index
 =end
         def peek
-          if !@push.nil?
-            return @push
-          end
-          if @input.nil?
-            return nil
-          end
-          if @input.empty?
-            return nil
-          end
-          if @index >= @input.size
-            return nil
-          end
+          return @push if !@push.nil?
+          return nil if @input.nil?
+          return nil if @input.empty?
+          return nil if @index >= @input.size
           return @input[@index]
         end
 =begin
@@ -101,9 +79,7 @@ module Owasp
   meaning a through f and 0 through 9
 =end
         def is_hex(c)
-          if c.nil?
-            return false
-          end
+          return false if c.nil?
           c =~ /[a-fA-F0-9]/
         end
 =begin
@@ -117,10 +93,8 @@ module Owasp
   fetch the rest of the string from the current index
 =end
         def remainder
-          t = @input.slice(@index,@stirng.size-@index)
-          unless @push.nil?
-            return @push + t
-          end
+          t = @input.slice(@index,@input.size-@index)
+          return @push + t unless @push.nil?
           return t
         end
       end

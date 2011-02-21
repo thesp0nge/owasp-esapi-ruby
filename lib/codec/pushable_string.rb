@@ -41,7 +41,7 @@ module Owasp
         def next_hex
           c = self.next
           return nil if c.nil?
-          return c if is_hex(c)
+          return c if hex?(c)
           return nil
         end
 =begin
@@ -50,7 +50,7 @@ module Owasp
         def next_octal
           c = self.next
           return nil if c.nil?
-          return c if is_octal(c)
+          return c if octal?(c)
           return nil
         end
 =begin
@@ -96,7 +96,7 @@ module Owasp
   check if a given character is a hexadecimal character
   meaning a through f and 0 through 9
 =end
-        def is_hex(c)
+        def hex?(c)
           return false if c.nil?
           c =~ /[a-fA-F0-9]/
         end
@@ -104,7 +104,7 @@ module Owasp
   check if a given character is an octal character
   means 0 through 7
 =end
-        def is_octal(c)
+        def octal?(c)
           return false if c.nil?
           c =~ /[0-7]/
         end

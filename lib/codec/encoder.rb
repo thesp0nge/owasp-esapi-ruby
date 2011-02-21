@@ -12,25 +12,34 @@ module Owasp
       IMMUNE_OS         = [ '-' ]
       IMMUNE_XMLATTR    = [ ',', '.', '-', '_' ]
       IMMUNE_XPATH      = [ ',', '.', '-', '_', ' ' ]
-      @@codecs = []
-      @@html_codec = Owasp::Esapi::Codec::HtmlCodec.new
-      @@xml_codec = nil
-      @@percent_codec = Owasp::Esapi::Codec::PercentCodec.new
-      @@js_codec = nil
-      @@vb_codec = nil
-      @@css_codec = Owasp::Esapi::Codec::CssCodec.new
+      PASSWORD_SPECIALS = "!$*-.=?@_"
+      CHAR_LCASE = "abcdefghijklmnopqrstuvwxyz"
+      CHAR_UCASE = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+      CHAR_DIGITS = "0123456789"
+      CHAR_SPECIALS = "!$*+-.=?@^_|~"
+      CHAR_LETTERS = "#{CHAR_LCASE}#{CHAR_UCASE}"
+      CHAR_ALPHANUMERIC = "#{CHAR_LETTERS}#{CHAR_DIGITS}"
 
       # Create an encoder, optionally pass in a list of codecs to use
       def initialize(configured_codecs = nil)
+        # codec list
+        @codecs = []
+        # default codecs
+        @html_codec = Owasp::Esapi::Codec::HtmlCodec.new
+        @percent_codec = Owasp::Esapi::Codec::PercentCodec.new
+        @js_codec = Owasp::Esapi::Codec::JavascriptCodec.new
+        @vb_codec = nil
+        @css_codec = Owasp::Esapi::Codec::CssCodec.new
         unless configured_codecs.nil?
-          configured_codes.each do |codec|
-            @@codecs << codec
+          configured_codecs.each do |c|
+            @codecs << c
           end
         else
           # setup some defaults codecs
-          @@codecs << @@css_codec
-          @@codecs << @@html_codec
-          @@codecs << @@percent_codec
+          puts "Setting up Default Codecs"
+          @codecs << @html_codec
+          @codecs << @percent_codec
+          @codecs << @js_codec
         end
       end
 =begin
@@ -61,7 +70,7 @@ module Owasp
         clean = false
         while !clean
           clean = true
-          @@codecs.each do |codec|
+          @codecs.each do |codec|
             old = working
             working = codec.decode(working)
             if !old.eql?(working)
@@ -106,20 +115,25 @@ module Owasp
 =end
       def encode_for_css(input)
         return nil if input.nil?
-        @@css_codec.encode(IMMUNE_CSS,input)
+        @css_codec.encode(IMMUNE_CSS,input)
+      end
+
+      def encode_for_javascript(input)
+        return nil if input.nil?
+        @js_codec.encode(IMMUNE_JAVASCRIPT,input)
       end
 
       def encode_for_html(input)
         return nil if input.nil?
-        @@html_codec.encode(IMMUNE_HTML,input)
+        @html_codec.encode(IMMUNE_HTML,input)
       end
       def dencode_for_html(input)
         return nil if input.nil?
-        @@html_codec.decode(input)
+        @html_codec.decode(input)
       end
       def encode_for_html_attr(input)
         return nil if input.nil?
-        @@html_codec.encode(IMMUNE_HTMLATTR,input)
+        @html_codec.encode(IMMUNE_HTMLATTR,input)
       end
 
     end

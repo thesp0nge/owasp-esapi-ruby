@@ -1,5 +1,5 @@
 #
-# Originally I was using teh cgi lib to encode and decode values
+# Originally I was using the cgi lib to encode and decode values
 # however i changed that approach for more control
 #
 module Owasp

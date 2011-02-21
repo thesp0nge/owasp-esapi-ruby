@@ -51,6 +51,10 @@ module Owasp
             m.should == "abcxyz"
           end
 
+          it "should decode \\3c as <" do
+            codec.decode("\\3c").should == "<"
+          end
+
         end
       end
   end

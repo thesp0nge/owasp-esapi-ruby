@@ -52,7 +52,7 @@ module Owasp
 =begin
   helper method for codecs to get the hex value of a character
 =end
-        def hex_value(c)
+        def hex(c)
           return nil if c.nil?
           b = c[0].ord
           if b < 0xff

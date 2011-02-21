@@ -17,7 +17,7 @@ module Owasp
           # check immune
           return input if immune.include?(input)
           # check for alpha numeric
-          hex = hex_value(input)
+          hex = hex(input)
           # add a space at end to terminate under css
           return "\\#{hex} " unless hex.nil? or hex.empty?
           return input
@@ -86,7 +86,7 @@ module Owasp
           # handle the skip ahead. Ruby case doesnt allow for fall through so we inlined the small setup
           return decode_char(input) if second == "\n" || second == "\f" || second == "\u0000" || fallthrough
           # non hex test
-          return second if !input.is_hex(second)
+          return second if !input.hex?(second)
           # check for 6 hex digits for rule 3
           tmp = second
           for i in 1..5 do
@@ -94,7 +94,7 @@ module Owasp
             if c.nil? or c =~ /\s/
               break
             end
-            if input.is_hex(c)
+            if input.hex?(c)
               tmp << c
             else
               input.push(c)

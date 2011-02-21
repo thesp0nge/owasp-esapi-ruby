@@ -3,7 +3,7 @@ require File.expand_path(File.dirname(__FILE__) + '/spec_helper')
 module Owasp
   module Esapi
     describe Encoder do
-      let (:encoder) { Owasp::Esapi::Encoder.new }
+      let (:encoder) { Owasp::Esapi.encoder }
 
       # Sanitize
       it "should sanitize input" do
@@ -12,7 +12,7 @@ module Owasp
         # test exception paths
         encoder.sanitize("%25",true).should == '%'
         encoder.sanitize("%25",false).should == '%'
-        # test HTML, url and CSS codecs
+        # test HTML and Percent
         encoder.canonicalize("%25F").should == "%F"
         encoder.canonicalize("%3c").should == "<"
         encoder.canonicalize("%3C").should == "<"
@@ -30,16 +30,6 @@ module Owasp
         encoder.canonicalize("%25F").should == "%F"
         encoder.canonicalize("%25F").should == "%F"
         encoder.canonicalize("%25F").should == "%F"
-        encoder.canonicalize("\\3c").should == "<"
-        encoder.canonicalize("\\03c").should == "<"
-        encoder.canonicalize("\\003c").should == "<"
-        encoder.canonicalize("\\0003c").should == "<"
-        encoder.canonicalize("\\00003c").should == "<"
-        encoder.canonicalize("\\3C").should == "<"
-        encoder.canonicalize("\\03C").should == "<"
-        encoder.canonicalize("\\003C").should == "<"
-        encoder.canonicalize("\\0003C").should == "<"
-        encoder.canonicalize("\\00003C").should == "<"
         encoder.canonicalize("&#60").should == "<"
         encoder.canonicalize("&#060").should == "<"
         encoder.canonicalize("&#0060").should == "<"
@@ -90,9 +80,33 @@ module Owasp
         begin
           encoder.canonicalize("%3Cscript&#x3E;alert%28%22hello&#34%29%3B%3C%2Fscript%3E") == "<script>alert(\"hello\");</script>"
         rescue IntrustionException => e
-          puts e.log_message
         end
-        pending("Add JS, Percentage")
+        # javascrpt tests
+        jsencoder = Owasp::Esapi::Encoder.new([Owasp::Esapi::Codec::JavascriptCodec.new])
+        jsencoder.canonicalize("\\0").should == "\0"
+        jsencoder.canonicalize("\\b").should == "\b"
+        jsencoder.canonicalize("\\t").should == "\t"
+        jsencoder.canonicalize("\\n").should == "\n"
+        jsencoder.canonicalize("\\v").should == "\v"
+        jsencoder.canonicalize("\\f").should == "\f"
+        jsencoder.canonicalize("\\r").should == "\r"
+        jsencoder.canonicalize("\\'").should == "\'"
+        jsencoder.canonicalize("\\\"").should == "\""
+        jsencoder.canonicalize("\\\\").should == "\\"
+        jsencoder.canonicalize("\\<").should == "<"
+        # Css test
+        cssencoder = Owasp::Esapi::Encoder.new([Owasp::Esapi::Codec::CssCodec.new])
+        cssencoder.canonicalize("\\3c").should == "<"
+        cssencoder.canonicalize("\\03c").should == "<"
+        cssencoder.canonicalize("\\003c").should == "<"
+        cssencoder.canonicalize("\\0003c").should == "<"
+        cssencoder.canonicalize("\\00003c").should == "<"
+        cssencoder.canonicalize("\\3C").should == "<"
+        cssencoder.canonicalize("\\03C").should == "<"
+        cssencoder.canonicalize("\\003C").should == "<"
+        cssencoder.canonicalize("\\0003C").should == "<"
+        cssencoder.canonicalize("\\00003C").should == "<"
+
       end
       # Canocialize
       it "should canonicalize input" do

@@ -19,7 +19,7 @@ module Owasp
           c = input
           return input if immune.include?(input)
           # check for alpha numeric
-          hex = hex_value(input)
+          hex = hex(input)
           return input if hex.nil?
           # check to see if we need to replace an entity
           if ( c.ord <= 0x1f and c != '\t' and c != '\n' and c != '\r' ) || ( c.ord >= 0x7f and c.ord <= 0x9f )

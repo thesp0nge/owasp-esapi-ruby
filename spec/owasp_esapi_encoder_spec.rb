@@ -169,6 +169,29 @@ module Owasp
       end
 
       # HTML Encoder
+      {
+        "<script>" => "&lt;script&gt;",
+        "&lt;script&gt;"=>"&amp;lt&#x3b;script&amp;gt&#x3b;",
+        "!@$%()=+{}[]" => "&#x21;&#x40;&#x24;&#x25;&#x28;&#x29;&#x3d;&#x2b;&#x7b;&#x7d;&#x5b;&#x5d;",
+        ",.-_ " => ",.-_ ",
+        "dir&" => "dir&amp;",
+        "one&two" => "one&amp;two",
+      }.each_pair do |k,v|
+        it "should encode HTML #{k} as #{v}" do
+          encoder.encode_for_html(k).should == v
+        end
+      end
+
+      # HTML Attribute
+      {
+        "<script>" => "&lt;script&gt;",
+        "&lt;script&gt;"=>"&amp;lt&#x3b;script&amp;gt&#x3b;",
+        " !@$%()=+{}[]" => "&#x20;&#x21;&#x40;&#x24;&#x25;&#x28;&#x29;&#x3d;&#x2b;&#x7b;&#x7d;&#x5b;&#x5d;",
+      }.each_pair do |k,v|
+        it "should encode html attribute #{k} as #{v}" do
+          encoder.encode_for_html_attr(k).should == v
+        end
+      end
 
       # JS Encoder
       it "should hs encode nil as nil" do

@@ -135,6 +135,11 @@ module Owasp
         @html_codec.encode(IMMUNE_HTMLATTR,input)
       end
 
+      def encode_for_os(codec,input)
+        return nil if input.nil?
+        codec.encode(IMMUNE_OS,input)
+      end
+
     end
   end
 end

@@ -156,13 +156,11 @@ module Owasp
 
       # Css Encoder
       it "should css encode nil as nil" do
-        result = encoder.encode_for_css(nil)
-        result.should == nil
+        encoder.encode_for_css(nil).should == nil
       end
 
       it "should css encode <script> as '\\3cscript\\3e" do
-        result = encoder.encode_for_css("<script>")
-        result.should == "\\3c script\\3e "
+        encoder.encode_for_css("<script>").should == "\\3c script\\3e "
       end
 
       it "should css encode punction properly" do
@@ -172,16 +170,19 @@ module Owasp
 
       # HTML Encoder
 
-
       # JS Encoder
+      it "should hs encode nil as nil" do
+        encoder.encode_for_javascript(nil).should == nil
+      end
+
       it "should js encode special characers" do
-        pending("Add JS encoder")
+        encoder.encode_for_javascript("!@$%()=+{}[]").should == "\\x21\\x40\\x24\\x25\\x28\\x29\\x3D\\x2B\\x7B\\x7D\\x5B\\x5D"
       end
       it "should js encode ',.-_ '" do
-        pending("Add JS encoder")
+        encoder.encode_for_javascript(",.-_ ").should == ",.\\x2D_\\x20"
       end
       it "should js encode a script tag" do
-        pending("Add JS encoder")
+        encoder.encode_for_javascript("<script>").should == "\\x3Cscript\\x3E"
       end
     end
   end

@@ -3,159 +3,156 @@ require File.expand_path(File.dirname(__FILE__) + '/spec_helper')
 module Owasp
   module Esapi
     describe Encoder do
+      # Setup some encoders
       let (:encoder) { Owasp::Esapi.encoder }
+      let (:jsencoder) {Owasp::Esapi::Encoder.new([Owasp::Esapi::Codec::JavascriptCodec.new])}
+      let (:cssencoder) {Owasp::Esapi::Encoder.new([Owasp::Esapi::Codec::CssCodec.new])}
 
+      # HTML and Percent Codec tests
+      # Generate dynamic canonicalization tests
+      {
+        "%25F"=> "%F",
+        "%3c"=> "<",
+        "%3C"=> "<",
+        "%X1"=> "%X1",
+        "&#60"=> "<",
+        "&#060"=> "<",
+        "&#0060"=> "<",
+        "&#000060"=>"<",
+        "&#0000060"=>"<",
+        "&#60;"=> "<",
+        "&#060;"=> "<",
+        "&#0060;"=> "<",
+        "&#000060;"=> "<",
+        "&#0000060;"=> "<",
+        "&#x3c"=> "<",
+        "&#x03c"=> "<",
+        "&#x0003c"=> "<",
+        "&#x000003c"=> "<",
+        "&#x00000003c"=> "<",
+        "&#x3c;"=> "<",
+        "&#x03c;"=> "<",
+        "&#x003c;"=> "<",
+        "&#x00003c;"=> "<",
+        "&#x0000003c;"=> "<",
+        "&#X03c"=> "<",
+        "&#X3c"=> "<",
+        "&#X0003c"=> "<",
+        "&#X000003c"=> "<",
+        "&#X00000003c"=> "<",
+        "&#x3C"=> "<",
+        "&#x03C"=> "<",
+        "&#x0003C"=> "<",
+        "&#x000003C"=> "<",
+        "&#x00000003C"=> "<",
+        "&#X3C"=> "<",
+        "&#X03C"=> "<",
+        "&#X0003C"=> "<",
+        "&#X000003C"=> "<",
+        "&#X00000003C"=> "<",
+        "&lt"=> "<",
+        "&LT"=> "<",
+        "&Lt"=> "<",
+        "&lT"=> "<",
+        "&lt;"=> "<",
+        "&LT;"=> "<",
+        "&Lt;"=> "<",
+        "&lT;"=> "<",
+        "&#37;"=> "%",
+        "&#37"=> "%",
+        "&#37b"=> "%b",
+        "%3Cscript%3Ealert%28%22hello%22%29%3B%3C%2Fscript%3E"=> "<script>alert(\"hello\");</script>",
+        "%3Cscript&#x3E;alert%28%22hello&#34%29%3B%3C%2Fscript%3E"=> "<script>alert(\"hello\");</script>",
+      }.each_pair do |k,v|
+        it "should canonicalize #{k} to #{v}" do
+          begin
+            encoder.canonicalize(k.dup).should == v
+          rescue IntrustionException =>e
+            # if IDSis on we would throw an intrustion exception, other exceptions are real errors
+          end
+        end
+      end
+
+      # Javascript dynamic canonicilzation tests
+      {
+        "\\0"=> "\0",
+        "\\b"=> "\b",
+        "\\t"=> "\t",
+        "\\n"=> "\n",
+        "\\v"=> "\v",
+        "\\f"=> "\f",
+        "\\r"=> "\r",
+        "\\'"=> "\'",
+        "\\\""=> "\"",
+        "\\\\"=> "\\",
+        "\\<"=> "<",
+      }.each_pair do |k,v|
+         it "should canonicalize javascript #{k} to #{v}" do
+            begin
+              jsencoder.canonicalize(k.dup).should == v
+            rescue IntrustionException =>e
+              # if IDSis on we would throw an intrustion exception, other exceptions are real errors
+            end
+          end
+      end
+      # CSS dynamic canonicalization tests
+      {
+        "\\3c"=> "<",
+        "\\03c"=> "<",
+        "\\003c"=> "<",
+        "\\0003c"=> "<",
+        "\\00003c"=> "<",
+        "\\3C"=> "<",
+        "\\03C"=> "<",
+        "\\003C"=> "<",
+        "\\0003C"=> "<",
+        "\\00003C"=> "<",
+      }.each_pair do |k,v|
+         it "should canonicalize CSS #{k} to #{v}" do
+            begin
+              cssencoder.canonicalize(k.dup).should == v
+            rescue IntrustionException =>e
+              # if IDSis on we would throw an intrustion exception, other exceptions are real errors
+            end
+          end
+      end
       # Sanitize
-      it "should sanitize input" do
+      it "should sanitize input exceptions" do
         # test null value
         encoder.canonicalize(nil).should == nil
         # test exception paths
         encoder.sanitize("%25",true).should == '%'
         encoder.sanitize("%25",false).should == '%'
-        # test HTML and Percent
-        encoder.canonicalize("%25F").should == "%F"
-        encoder.canonicalize("%3c").should == "<"
-        encoder.canonicalize("%3C").should == "<"
-        encoder.canonicalize("%X1").should == "%X1"
-        encoder.canonicalize("%25F").should == "%F"
-        encoder.canonicalize("%25F").should == "%F"
-        encoder.canonicalize("%25F").should == "%F"
-        encoder.canonicalize("%25F").should == "%F"
-        encoder.canonicalize("%25F").should == "%F"
-        encoder.canonicalize("%25F").should == "%F"
-        encoder.canonicalize("%25F").should == "%F"
-        encoder.canonicalize("%25F").should == "%F"
-        encoder.canonicalize("%25F").should == "%F"
-        encoder.canonicalize("%25F").should == "%F"
-        encoder.canonicalize("%25F").should == "%F"
-        encoder.canonicalize("%25F").should == "%F"
-        encoder.canonicalize("%25F").should == "%F"
-        encoder.canonicalize("&#60").should == "<"
-        encoder.canonicalize("&#060").should == "<"
-        encoder.canonicalize("&#0060").should == "<"
-        encoder.canonicalize("&#000060").should == "<"
-        encoder.canonicalize("&#0000060").should == "<"
-        encoder.canonicalize("&#60;").should == "<"
-        encoder.canonicalize("&#060;").should == "<"
-        encoder.canonicalize("&#0060;").should == "<"
-        encoder.canonicalize("&#000060;").should == "<"
-        encoder.canonicalize("&#0000060;").should == "<"
-        encoder.canonicalize("&#x3c").should == "<"
-        encoder.canonicalize("&#x03c").should == "<"
-        encoder.canonicalize("&#x0003c").should == "<"
-        encoder.canonicalize("&#x000003c").should == "<"
-        encoder.canonicalize("&#x00000003c").should == "<"
-        encoder.canonicalize("&#x3c;").should == "<"
-        encoder.canonicalize("&#x03c;").should == "<"
-        encoder.canonicalize("&#x003c;").should == "<"
-        encoder.canonicalize("&#x00003c;").should == "<"
-        encoder.canonicalize("&#x0000003c;").should == "<"
-        encoder.canonicalize("&#X3c").should == "<"
-        encoder.canonicalize("&#X03c").should == "<"
-        encoder.canonicalize("&#X0003c").should == "<"
-        encoder.canonicalize("&#X000003c").should == "<"
-        encoder.canonicalize("&#X00000003c").should == "<"
-        encoder.canonicalize("&#x3C").should == "<"
-        encoder.canonicalize("&#x03C").should == "<"
-        encoder.canonicalize("&#x0003C").should == "<"
-        encoder.canonicalize("&#x000003C").should == "<"
-        encoder.canonicalize("&#x00000003C").should == "<"
-        encoder.canonicalize("&#X3C").should == "<"
-        encoder.canonicalize("&#X03C").should == "<"
-        encoder.canonicalize("&#X0003C").should == "<"
-        encoder.canonicalize("&#X000003C").should == "<"
-        encoder.canonicalize("&#X00000003C").should == "<"
-        encoder.canonicalize("&lt").should == "<"
-        encoder.canonicalize("&LT").should == "<"
-        encoder.canonicalize("&Lt").should == "<"
-        encoder.canonicalize("&lT").should == "<"
-        encoder.canonicalize("&lt;").should == "<"
-        encoder.canonicalize("&LT;").should == "<"
-        encoder.canonicalize("&Lt;").should == "<"
-        encoder.canonicalize("&lT;").should == "<"
-        encoder.canonicalize("&#37;").should == "%"
-        encoder.canonicalize("&#37").should == "%"
-        encoder.canonicalize("&#37b").should == "%b"
-        encoder.canonicalize("%3Cscript%3Ealert%28%22hello%22%29%3B%3C%2Fscript%3E") == "<script>alert(\"hello\");</script>"
-        begin
-          encoder.canonicalize("%3Cscript&#x3E;alert%28%22hello&#34%29%3B%3C%2Fscript%3E") == "<script>alert(\"hello\");</script>"
-        rescue IntrustionException => e
-        end
-        # javascrpt tests
-        jsencoder = Owasp::Esapi::Encoder.new([Owasp::Esapi::Codec::JavascriptCodec.new])
-        jsencoder.canonicalize("\\0").should == "\0"
-        jsencoder.canonicalize("\\b").should == "\b"
-        jsencoder.canonicalize("\\t").should == "\t"
-        jsencoder.canonicalize("\\n").should == "\n"
-        jsencoder.canonicalize("\\v").should == "\v"
-        jsencoder.canonicalize("\\f").should == "\f"
-        jsencoder.canonicalize("\\r").should == "\r"
-        jsencoder.canonicalize("\\'").should == "\'"
-        jsencoder.canonicalize("\\\"").should == "\""
-        jsencoder.canonicalize("\\\\").should == "\\"
-        jsencoder.canonicalize("\\<").should == "<"
-        # Css test
-        cssencoder = Owasp::Esapi::Encoder.new([Owasp::Esapi::Codec::CssCodec.new])
-        cssencoder.canonicalize("\\3c").should == "<"
-        cssencoder.canonicalize("\\03c").should == "<"
-        cssencoder.canonicalize("\\003c").should == "<"
-        cssencoder.canonicalize("\\0003c").should == "<"
-        cssencoder.canonicalize("\\00003c").should == "<"
-        cssencoder.canonicalize("\\3C").should == "<"
-        cssencoder.canonicalize("\\03C").should == "<"
-        cssencoder.canonicalize("\\003C").should == "<"
-        cssencoder.canonicalize("\\0003C").should == "<"
-        cssencoder.canonicalize("\\00003C").should == "<"
-
       end
-      # Canocialize
-      it "should canonicalize input" do
-        pending "Add test once other codecs in place"
-      end
-      # Double canonicalize
-      it "should canonicalize double encoded inputs and send warnings" do
 
-        encoder.sanitize("&#x26;lt&#59",false).should == "<" # double entity
-        encoder.sanitize("%255c",false).should == "\\" # double percent
-        encoder.sanitize("%2525",false).should == "%" #double percent
-        encoder.sanitize("%26lt%3b",false).should == "<" #double percent
-        # multi scheme double encoding
-        encoder.sanitize("%26lt%3b",false).should == "<"
-        encoder.sanitize("&#x25;26",false).should == "&"
-        # nested encoding
-        encoder.sanitize("%253c", false).should == "<"
-        encoder.sanitize("%%33%63", false).should == "<"
-        encoder.sanitize("%%33c", false).should == "<"
-        encoder.sanitize("%3%63", false).should == "<"
-        encoder.sanitize("&&#108;t;", false).should == "<"
-        encoder.sanitize("&%6ct;", false).should == "<"
-        encoder.sanitize("%&#x33;c", false).should == "<"
-        # multi encoding test
-        encoder.sanitize("%25 %2526 %26#X3c;script&#x3e; &#37;3Cscript%25252525253e", false).should == "% & <script> <script>"
-        encoder.sanitize("%26lt; %26lt; &#X25;3c &#x25;3c %2526lt%253B %2526lt%253B %2526lt%253B", false).should == "< < < < < < <"
-        # strict mode
-        begin
-          encoder.sanitize("%26lt; %26lt; &#X25;3c &#x25;3c %2526lt%253B %2526lt%253B %2526lt%253B", true).should == "< < < < < < <"
-        rescue IntrustionException => e
-          # expect a warning
-          e.message.should == "Input validation failure"
-        end
-
-        begin
-          encoder.sanitize("%253Cscript",true).should == "<script"
-         rescue IntrustionException => e
-            # expect a warning
-            e.message.should == "Input validation failure"
+      # Dynamic double canonicalization tests
+      {
+        "&#x26;lt&#59"=> "<",# double entity
+        "%255c"=> "\\",      # double percent
+        "%2525"=> "%" ,      #double percent
+        "%26lt%3b"=> "<",    #double percent
+        "%253c"=> "<",
+        "%26lt%3b"=> "<",
+        "&#x25;26"=> "&",
+        "%%33%63"=> "<",
+        "%%33c"=> "<",
+        "%3%63"=> "<",
+        "&&#108;t;"=> "<",
+        "&%6ct;"=> "<",
+        "%&#x33;c"=> "<",
+        "%25 %2526 %26#X3c;script&#x3e; &#37;3Cscript%25252525253e"=> "% & <script> <script>",
+        "%26lt; %26lt; &#X25;3c &#x25;3c %2526lt%253B %2526lt%253B %2526lt%253B"=> "< < < < < < <",
+        "%253Cscript"=> "<script",
+        "&#37;3Cscript"=> "<script",
+      }.each_pair do |k,v|
+        it "should properly handle #{k} with double canonicalization and return #{v}" do
+          begin
+            encoder.sanitize(k.dup,false).should == v
+          rescue IntrustionException =>e
+            # if IDSis on we would throw an intrustion exception, other exceptions are real errors
           end
-
-        begin
-          encoder.sanitize("&#37;3Cscript",true).should == "<script"
-         rescue IntrustionException => e
-            # expect a warning
-            e.message.should == "Input validation failure"
-          end
+        end
       end
-
 
       # Css Encoder
       it "should css encode nil as nil" do

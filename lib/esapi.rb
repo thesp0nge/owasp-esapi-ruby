@@ -29,7 +29,7 @@ module Owasp
 
   class Logger
     def warn(msg)
-      puts "WARNING: #{msg}"
+      #puts "WARNING: #{msg}"
     end
   end
 

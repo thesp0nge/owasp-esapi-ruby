@@ -36,7 +36,6 @@ module Owasp
           end
         else
           # setup some defaults codecs
-          puts "Setting up Default Codecs"
           @codecs << @html_codec
           @codecs << @percent_codec
           @codecs << @js_codec

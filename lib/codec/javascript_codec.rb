@@ -11,7 +11,7 @@ module Owasp
           if temp.hex < 256
             return "\\x#{'00'[temp.size,2-temp.size]}#{temp.upcase}"
           end
-          return "\\u#{'0000'[temp.size,4-temp.size]}#{temp.upcase}"
+          "\\u#{'0000'[temp.size,4-temp.size]}#{temp.upcase}"
 
         end
 
@@ -101,7 +101,7 @@ module Owasp
               return nil
             end
           end
-          return second
+          second
         end
       end
     end

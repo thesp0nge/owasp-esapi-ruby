@@ -20,7 +20,7 @@ module Owasp
           hex = hex(input)
           # add a space at end to terminate under css
           return "\\#{hex} " unless hex.nil? or hex.empty?
-          return input
+          input
         end
 
 =begin

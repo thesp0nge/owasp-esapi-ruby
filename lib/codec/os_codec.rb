@@ -1,9 +1,3 @@
-class OSDetect
-
-  def self.os
-
-  end
-end
 require 'rbconfig'
 =begin
   Operating system codec for escape characters for HOST commands

@@ -33,7 +33,7 @@ module Owasp
 
           t = @input[@index]
           @index += 1
-          return t
+          t
         end
 =begin
   get the next hex token in the string or nil
@@ -42,7 +42,7 @@ module Owasp
           c = self.next
           return nil if c.nil?
           return c if hex?(c)
-          return nil
+          nil
         end
 =begin
   get the next octal token int eh string or nil
@@ -51,7 +51,7 @@ module Owasp
           c = self.next
           return nil if c.nil?
           return c if octal?(c)
-          return nil
+          nil
         end
 =begin
   Check to see if we have another token on the stream
@@ -73,7 +73,7 @@ module Owasp
           return false if @input.empty?
           return false if @input.nil?
           return false if @index >= @input.size
-          return @input[@index] == c
+          @input[@index] == c
         end
 =begin
   Peek into the stream and fetch teh next character without moving the index
@@ -83,7 +83,7 @@ module Owasp
           return nil if @input.nil?
           return nil if @input.empty?
           return nil if @index >= @input.size
-          return @input[@index]
+          @input[@index]
         end
 =begin
   mark the stream for rewind
@@ -121,7 +121,7 @@ module Owasp
         def remainder
           t = @input.slice(@index,@input.size-@index)
           return @push + t unless @push.nil?
-          return t
+          t
         end
       end
     end

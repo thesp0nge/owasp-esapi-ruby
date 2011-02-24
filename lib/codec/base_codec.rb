@@ -41,7 +41,7 @@ module Owasp
           input.encode(Encoding::UTF_8).chars do |c|
             encoded_string << encode_char(immune,c)
           end
-          return encoded_string
+          encoded_string
         end
 =begin
   sub classes should implement this method to mark how to encode a single character
@@ -76,7 +76,7 @@ module Owasp
               decoded_string << t
             end
           end
-          return decoded_string
+          decoded_string
         end
 =begin
   input is a PushableString

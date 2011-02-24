@@ -41,6 +41,7 @@ module Owasp
           @codecs << @js_codec
         end
       end
+
 =begin
   canonicalize(input)
   input will be tested and canonicalize
@@ -52,8 +53,9 @@ module Owasp
         return nil if input.nil?
 
         # check teh ESAPI config and figure out if we want strict encoding
-        return sanitize(input,Owasp::Esapi.security_config.ids?)
+        sanitize(input,Owasp::Esapi.security_config.ids?)
       end
+
 =begin
   sanitize(input,strict)
   input i the data to test
@@ -104,7 +106,7 @@ module Owasp
               Owasp::Esapi.logger.warn("Mixed encoding (#{mixed_count}x) detected in #{input}")
           end
         end
-        return working
+        working
       end
       # Some convience methods to access codecs without have to have create one
 
@@ -117,24 +119,46 @@ module Owasp
         @css_codec.encode(IMMUNE_CSS,input)
       end
 
+=begin
+  encode_for_javascript(input)
+  input should be escaped for javascript use
+=end
       def encode_for_javascript(input)
         return nil if input.nil?
         @js_codec.encode(IMMUNE_JAVASCRIPT,input)
       end
 
+=begin
+  encode_for_html(input)
+  input should be escaped for html use
+=end
       def encode_for_html(input)
         return nil if input.nil?
         @html_codec.encode(IMMUNE_HTML,input)
       end
+
+=begin
+  dencode_for_html(input)
+  input should be unescaped for html use
+=end
       def dencode_for_html(input)
         return nil if input.nil?
         @html_codec.decode(input)
       end
+
+=begin
+  encode_for_html_attr(input)
+  input should be escaped for html attribute use
+=end
       def encode_for_html_attr(input)
         return nil if input.nil?
         @html_codec.encode(IMMUNE_HTMLATTR,input)
       end
 
+=begin
+  encode_for_os(os_codec,input)
+  input should be escaped for use in an OS system call
+=end
       def encode_for_os(codec,input)
         return nil if input.nil?
         codec.encode(IMMUNE_OS,input)

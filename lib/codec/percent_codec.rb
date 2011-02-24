@@ -18,7 +18,7 @@ module Owasp
           input.each_byte do |b|
             val << '%' << b.ord.to_h.upcase
           end
-          return val
+          val
         end
 
 =begin
@@ -51,7 +51,7 @@ module Owasp
             end
           end
           input.reset
-          return nil
+          nil
         end
       end
     end

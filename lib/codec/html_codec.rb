@@ -31,7 +31,7 @@ module Owasp
               return "&#{k};" if v == c.ord
           end
           #encode as a hex value
-          return "&#x#{hex};"
+          "&#x#{hex};"
         end
 =begin
   decode a character
@@ -106,8 +106,7 @@ module Owasp
           end
           possible = ENTITY_MAP[last_possible]
           input.next if input.peek?(';')
-          return possible.chr(Encoding::UTF_8)
-
+          possible.chr(Encoding::UTF_8)
         end
         # parse a number int he stream
         def parse_number(input)
@@ -130,7 +129,7 @@ module Owasp
             return i.chr(Encoding::UTF_8) if i >= START_CODE_POINT and i <= END_CODE_POINT
           rescue Exception => e
           end
-          return nil
+          nil
         end
         # parse a hex value in the stream
         def parse_hex(input)
@@ -152,7 +151,7 @@ module Owasp
             return i.chr(Encoding::UTF_8) if i >= START_CODE_POINT and i <= END_CODE_POINT
           rescue Exception => e
           end
-          return nil
+          nil
         end
 
         # Replacement const hex

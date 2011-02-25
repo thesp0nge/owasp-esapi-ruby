@@ -207,6 +207,20 @@ module Owasp
       it "should js encode a script tag" do
         encoder.encode_for_javascript("<script>").should == "\\x3Cscript\\x3E"
       end
+
+      # Vb script encoder
+      {
+        "<script>" => "chrw(60)&\"script\"&chrw(62)",
+        "x !@$%()=+{}[]" => "x\"&chrw(32)&chrw(33)&chrw(64)&chrw(36)&chrw(37)&chrw(40)&chrw(41)&chrw(61)&chrw(43)&chrw(123)&chrw(125)&chrw(91)&chrw(93)",
+        "alert('ESAPI test!')" => "alert\"&chrw(40)&chrw(39)&\"ESAPI\"&chrw(32)&\"test\"&chrw(33)&chrw(39)&chrw(41)",
+        "sal.scotto@gmail.com" => "sal.scotto\"&chrw(64)&\"gmail.com",
+        "test <> test" => "test\"&chrw(32)&chrw(60)&chrw(62)&chrw(32)&\"test"
+      }.each_pair do |k,v|
+        it "should encode vbscript #{k} as #{v}" do
+          encoder.encode_for_vbscript(k).should == v
+        end
+      end
+
     end
   end
 end

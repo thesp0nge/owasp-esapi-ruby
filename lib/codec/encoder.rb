@@ -28,7 +28,7 @@ module Owasp
         @html_codec = Owasp::Esapi::Codec::HtmlCodec.new
         @percent_codec = Owasp::Esapi::Codec::PercentCodec.new
         @js_codec = Owasp::Esapi::Codec::JavascriptCodec.new
-        @vb_codec = nil
+        @vb_codec = Owasp::Esapi::Codec::VbScriptCodec.new
         @css_codec = Owasp::Esapi::Codec::CssCodec.new
         unless configured_codecs.nil?
           configured_codecs.each do |c|
@@ -163,7 +163,14 @@ module Owasp
         return nil if input.nil?
         codec.encode(IMMUNE_OS,input)
       end
-
+=begin
+  encode_for_vbscript(input)
+  input should be escaped for vbscript usage
+=end
+      def encode_for_vbscript(input)
+        return nil if input.nil?
+        @vb_codec.encode(IMMUNE_VBSCRIPT,input)
+      end
     end
   end
 end

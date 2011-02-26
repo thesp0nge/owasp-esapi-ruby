@@ -182,7 +182,7 @@ module Owasp
       end
 
       # Encode data for use in Cascading Style Sheets (CSS) content.
-      # CSS Syntax [http://www.w3.org/TR/CSS21/syndata.html#escaped-characters](w3.org)
+      # CSS Syntax[http://www.w3.org/TR/CSS21/syndata.html#escaped-characters] (w3.org)
       def encode_for_css(input)
         return nil if input.nil?
         @css_codec.encode(IMMUNE_CSS,input)
@@ -212,9 +212,9 @@ module Owasp
       # 00-08, 0B-0C, 0E-1F, and 7F-9F
       # cannot be used in HTML.
       #
-      # HTML Encodings [http://en.wikipedia.org/wiki/Character_encodings_in_HTML](wikipedia.org)<br>
-      # SGML Specification [http://www.w3.org/TR/html4/sgml/sgmldecl.html](w3.org)<br>
-      # XML Specification [http://www.w3.org/TR/REC-xml/#charsets](w3.org)
+      # * HTML Encodings[http://en.wikipedia.org/wiki/Character_encodings_in_HTML] (wikipedia.org)
+      # * SGML Specification[http://www.w3.org/TR/html4/sgml/sgmldecl.html] (w3.org)
+      # * XML Specification[http://www.w3.org/TR/REC-xml/#charsets] (w3.org)
       def encode_for_html(input)
         return nil if input.nil?
         @html_codec.encode(IMMUNE_HTML,input)
@@ -280,9 +280,10 @@ module Owasp
       #
       # For more information, refer to this article[http://www.ibm.com/developerworks/xml/library/x-xpathinjection.html]
       # which specifies the following list of characters as the most dangerous: ^&"*';<>().
+      #
       # This[http://www.packetstormsecurity.org/papers/bypass/Blind_XPath_Injection_20040518.pdf] paper suggests disallowing ' and " in queries.<p>
-      # XPath Injection [http://www.ibm.com/developerworks/xml/library/x-xpathinjection.html] (ibm.com)
-      # Blind XPath Injection [http://www.packetstormsecurity.org/papers/bypass/Blind_XPath_Injection_20040518.pdf] (packetstormsecurity.org)
+      # * XPath Injection[http://www.ibm.com/developerworks/xml/library/x-xpathinjection.html] (ibm.com)
+      # * Blind XPath Injection[http://www.packetstormsecurity.org/papers/bypass/Blind_XPath_Injection_20040518.pdf] (packetstormsecurity.org)
       def encode_for_xpath(input)
         return nil if input.nil?
         @xml_codec.encode(IMMUNE_XPATH,input)

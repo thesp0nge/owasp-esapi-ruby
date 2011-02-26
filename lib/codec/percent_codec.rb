@@ -1,15 +1,10 @@
-#
-# Originally I was using the cgi lib to encode and decode values
-# however i changed that approach for more control
-#
+# Implementation of the Codec interface for percent encoding (aka URL encoding).
 module Owasp
   module Esapi
     module Codec
       class PercentCodec < BaseCodec
 
-=begin
-  encode each character outsize of the RFC raneg as a hex value
-=end
+        #  Encode a character for URLs
         def encode_char(immune,input)
           return input if input =~ /[a-zA-Z0-9_.-]/
           # RFC compliance
@@ -21,9 +16,8 @@ module Owasp
           val
         end
 
-=begin
-  decode a single percent encoded character
-=end
+        # Formats all are legal both upper/lower case:
+        # %hh;
         def decode_char(input)
           input.mark
           first = input.next

@@ -1,11 +1,14 @@
+# Various exception used by Esapi
 module Owasp
   module Esapi
-    # Exception throw if ther eis an error during Executor processing
+
+    # Exception throw if there is an error during Executor processing
     class ExecutorException < Exception
       def initialize(msg)
         super(msg)
       end
     end
+
     # Intrustion detection exception to be logged
     class IntrustionException < Exception
       attr :log_message

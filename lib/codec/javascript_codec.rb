@@ -3,18 +3,28 @@ module Owasp
     module Codec
       class JavascriptCodec < BaseCodec
 
+        # Returns backslash encoded numeric format. Does not use backslash character escapes
+        # such as, \" or \' as these may cause parsing problems. For example, if a javascript
+        # attribute, such as onmouseover, contains a \" that will close the entire attribute and
+        # allow an attacker to inject another script attribute.
         def encode_char(immune,input)
           return input if immune.include?(input)
           return input if hex(input).nil?
-
           temp = hex(input)
           if temp.hex < 256
             return "\\x#{'00'[temp.size,2-temp.size]}#{temp.upcase}"
           end
           "\\u#{'0000'[temp.size,4-temp.size]}#{temp.upcase}"
-
         end
 
+        # Returns the decoded version of the character starting at index, or
+        # null if no decoding is possible.
+        # See http://www.planetpdf.com/codecuts/pdfs/tutorial/jsspec.*pdf*
+        # Formats all are legal both upper/lower case:
+        # *  \\a - special characters
+        # *  \\xHH
+        # *  \\uHHHH
+        # *  \\OOO (1, 2, or 3 digits)
         def decode_char(input)
 
           input.mark

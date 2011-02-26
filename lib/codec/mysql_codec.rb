@@ -1,58 +1,52 @@
-=begin
-  Codec to provide for MySQL string support
-  http://mirror.yandex.ru/mirrors/ftp.mysql.com/doc/refman/5.0/en/string-syntax.html for details
-
-=end
+#
+# Codec to provide for MySQL string support
+# http://mirror.yandex.ru/mirrors/ftp.mysql.com/doc/refman/5.0/en/string-syntax.html for details
 module Owasp
   module Esapi
     module Codec
       class MySQLCodec < BaseCodec
-        MODE_ANSI = 1
-        MODE_MYSQL = 0;
-=begin
-  create a mysql codec.
-  mode must be either MODE_MYSQL or MODE_ANSI
-  The mode sets wether to use ANSI_QUOTES mode in mysql or not
-  defaults tp MODE_MYSQL
-=end
+        MYSQL_MODE = 0 # MySQL standard mode
+        ANSI_MODE  = 1; # ANSI escape mode
+
+        #  create a mysql codec.
+        # mode must be either MYSQL_MODE or ANSI_MODE
+        # The mode sets wether to use ansi mode in mysql or not
+        # defaults to MYSQL_MODE
         def initialize(mode = 0)
-          if mode < 0 or mode > 1
+          if mode < MYSQL_MODE or mode > ANSI_MODE
             raise RangeError.new()
           end
           @mode = mode
         end
 
-=begin
-  quote encode character
-=end
+        #  Returns quote-encoded *character*
         def encode_char(immune,input)
           return input if immune.include?(input)
           hex = hex(input)
           return input if hex.nil?
-          return to_ansi(input) if @mode == MODE_ANSI
-          return to_mysql(input) if @mode == MODE_MYSQL
+          return to_ansi(input) if @mode == ANSI_MODE
+          return to_mysql(input) if @mode == MYSQL_MODE
         end
 
-=begin
-  decode a character using the mode
-=end
+        # Returns the decoded version of the character starting at index, or
+        # nil if no decoding is possible.
+        #
+        # Formats all are legal (case sensitive)
+        #   In ANSI_MODE '' decodes to '
+        #   In MYSQL_MODE \x decodes to x (or a small list of specials)
         def decode_char(input)
-          return from_ansi(input) if @mode == MODE_ANSI
-          return from_mysql(input) if @mode == MODE_MYSQL
+          return from_ansi(input) if @mode == ANSI_MODE
+          return from_mysql(input) if @mode == MYSQL_MODE
         end
 
-        private
-=begin
-  encode ' only
-=end
-        def to_ansi(input)
+        #  encode ' only
+        def to_ansi(input) #:nodoc:
           return "\'\'" if input == "\'"
           input
         end
-=begin
-  encode for NO_BACKLASH_MODE
-=end
-        def to_mysql(input)
+
+        #  encode for NO_BACKLASH_MODE
+        def to_mysql(input) # :nodoc:
           c = input.ord
           return "\\0" if c == 0x00
           return "\\b" if c == 0x08
@@ -68,10 +62,8 @@ module Owasp
           "\\#{input}"
         end
 
-=begin
-  decode a char with ansi only compliane i.e. apostrohpe only
-=end
-        def from_ansi(input)
+        #  decode a char with ansi only compliane i.e. apostrohpe only
+        def from_ansi(input) # :nodoc:
           input.mark
           first = input.next
 
@@ -101,10 +93,8 @@ module Owasp
           "\'"
         end
 
-=begin
-  decode a char using mysql NO_BACKSLAH_QUOTE rules
-=end
-        def from_mysql(input)
+        #  decode a char using mysql NO_BACKSLAH_QUOTE rules
+        def from_mysql(input) # :nodoc:
           input.mark
           # check first
           first = input.next

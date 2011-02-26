@@ -16,23 +16,27 @@ class ClassLoader
   end
 end
 
+# Owasp root modules
 module Owasp
+  # Configuration class
   class Configuration
     attr_accessor :logger, :encoder
+    # Is intrustion detectione nabled?
     def ids?
       return true
     end
+    # Get the encoder class anem
     def get_encoder_class
 
     end
   end
-
+  # Logging class stub
   class Logger
     def warn(msg)
       #puts "WARNING: #{msg}"
     end
   end
-
+  # Esapi Root module
   module Esapi
 
     # seutp ESAPI
@@ -42,13 +46,15 @@ module Owasp
       process_config(@config)
     end
 
-
+    # Get the security configuration context
     def self.security_config
       @security ||= Configuration.new
     end
+    # Get the configured logger
     def self.logger
       @logger ||= Logger.new
     end
+    # Get the configured encoded
     def self.encoder
       @encoder ||= ClassLoader.load_class("Owasp::Esapi::Encoder")
     end

@@ -4,8 +4,8 @@ module Owasp
   module Esapi
     module Codec
       describe MySQLCodec do
-        let (:ansi_codec) { Owasp::Esapi::Codec::MySQLCodec.new(Owasp::Esapi::Codec::MySQLCodec::MODE_ANSI) }
-        let (:mysql_codec) { Owasp::Esapi::Codec::MySQLCodec.new(Owasp::Esapi::Codec::MySQLCodec::MODE_MYSQL) }
+        let (:ansi_codec) { Owasp::Esapi::Codec::MySQLCodec.new(Owasp::Esapi::Codec::MySQLCodec::ANSI_MODE) }
+        let (:mysql_codec) { Owasp::Esapi::Codec::MySQLCodec.new(Owasp::Esapi::Codec::MySQLCodec::MYSQL_MODE) }
         let (:big_char) {  }
 
         it "should encode \' as \'\' in ANSI mode" do

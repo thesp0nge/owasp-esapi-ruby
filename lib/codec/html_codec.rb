@@ -1,3 +1,4 @@
+# Implementation of the Codec interface for HTML entity encoding.
 module Owasp
   module Esapi
     module Codec
@@ -12,9 +13,8 @@ module Owasp
             @lookup_map[k.downcase] = k
           end
         end
-=begin
-  encode a charcter
-=end
+
+        #  Encodes a Character for safe use in an HTML entity field.
         def encode_char(immune, input)
           c = input
           return input if immune.include?(input)
@@ -28,14 +28,18 @@ module Owasp
           end
           # find the entity name if its possible
           ENTITY_MAP.each_pair do |k,v|
-              return "&#{k};" if v == c.ord
+            return "&#{k};" if v == c.ord
           end
           #encode as a hex value
           "&#x#{hex};"
         end
-=begin
-  decode a character
-=end
+
+        # Returns the decoded version of the character starting at index, or
+        # nil if no decoding is possible.
+        # Formats all are legal both with and without semi-colon, upper/lower case:
+        # * &#dddd;
+        # * &#xhhhh;
+        # * &name;
         def decode_char(input)
           # mark the input
           input.mark
@@ -70,7 +74,7 @@ module Owasp
         end
 
         # check to see if the input is a numeric entity
-        def numeric_entity(input)
+        def numeric_entity(input) #:nodoc:
           first = input.peek
           return nil if first.nil?
           if first.downcase.eql?("x")
@@ -81,7 +85,7 @@ module Owasp
         end
 
         # check to see if the input is a named entity
-        def named_entity(input)
+        def named_entity(input)#:nodoc:
           possible = ''
           len = min(input.remainder.size,@longest_key)
           if input.peek?("&")
@@ -109,7 +113,7 @@ module Owasp
           possible.chr(Encoding::UTF_8)
         end
         # parse a number int he stream
-        def parse_number(input)
+        def parse_number(input)#:nodoc:
           result = ''
           while input.next?
             c = input.peek
@@ -132,7 +136,7 @@ module Owasp
           nil
         end
         # parse a hex value in the stream
-        def parse_hex(input)
+        def parse_hex(input)#:nodoc:
           result = ''
           while input.next?
             c = input.peek

@@ -1,10 +1,10 @@
-require File.expand_path(File.dirname(__FILE__) + '/spec_helper')
+require File.expand_path(File.dirname(__FILE__) + '../../spec_helper')
 
 # percent encode aka URL encoding
 module Owasp
   module Esapi
       module Codec
-        describe PrecentCodec do
+        describe PercentCodec do
           let (:codec) { Owasp::Esapi::Codec::PercentCodec.new }
 
           it "should decode %3c as <" do

@@ -3,7 +3,7 @@ require File.expand_path(File.dirname(__FILE__) + '/spec_helper')
 module Owasp
   module Esapi
     module Codec
-      describe Codec do
+      describe VbScriptCodec do
         let (:codec) { Owasp::Esapi::Codec::VbScriptCodec.new }
         it "should encode < as chrw(60)" do
           codec.encode([],"<").should == "chrw(60)"

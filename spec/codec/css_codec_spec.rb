@@ -1,9 +1,9 @@
-require File.expand_path(File.dirname(__FILE__) + '/spec_helper')
+require File.expand_path(File.dirname(__FILE__) + '../../spec_helper')
 
 module Owasp
   module Esapi
       module Codec
-        describe Codec do
+        describe CssCodec do
           let (:codec) { Owasp::Esapi::Codec::CssCodec.new }
 
           it "should encode my '<' as \\3c" do

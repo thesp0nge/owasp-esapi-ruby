@@ -3,7 +3,7 @@ require File.expand_path(File.dirname(__FILE__) + '/spec_helper')
 module Owasp
   module Esapi
       module Codec
-        describe Codec do
+        describe JavascriptCodec do
           let (:codec) { Owasp::Esapi::Codec::JavascriptCodec.new }
 
           it "should decode \\x3c as <" do

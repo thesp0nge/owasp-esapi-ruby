@@ -1,5 +1,6 @@
 require File.expand_path(File.dirname(__FILE__) + '/spec_helper')
 
+# percent encode aka URL encoding
 module Owasp
   module Esapi
       module Codec

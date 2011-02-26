@@ -67,7 +67,7 @@ module Owasp
 =end
         def decode(input)
           decoded_string = ''
-          seekable = PushableString.new(input)
+          seekable = PushableString.new(input.dup)
           while seekable.next?
             t = decode_char(seekable)
             if t.nil?

@@ -20,6 +20,18 @@
 
 require 'cgi'
 require 'base64'
+require 'codec/base_codec'
+require 'codec/pushable_string'
+require 'codec/base_codec'
+require 'codec/css_codec'
+require 'codec/html_codec'
+require 'codec/percent_codec'
+require 'codec/javascript_codec'
+require 'codec/os_codec'
+require 'codec/vbscript_codec'
+require 'codec/oracle_codec'
+require 'codec/mysql_codec'
+require 'codec/xml_codec'
 
 module Owasp
   module Esapi

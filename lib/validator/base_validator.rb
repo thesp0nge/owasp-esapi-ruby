@@ -1,3 +1,11 @@
+# Expand Integer to add Min and Max values
+class Integer #:nodoc:
+  N_BYTES = [42].pack('i').size
+  N_BITS = N_BYTES * 8
+  MAX = 2 ** (N_BITS - 2) - 1
+  MIN = -MAX - 1
+end
+
 module Owasp
   module Esapi
     module Validator
@@ -28,13 +36,12 @@ module Owasp
         # if an exception if thrown it will be added
         # to the ValidatorErrorList object. This method allows for multiple rules to be executed
         # and collect all the errors that were invoked along the way.
-        def validate(context,input, errors)
-          raise ArgumentError.new("Invalid ErrorList") if errors.nil?
+        def validate(context,input, errors=nil)
           valid = nil
           begin
             valid = valid(context,input)
           rescue ValidationException => e
-            errors<< e
+            errors<< e unless errors.nil?
           end
           input
         end

@@ -3,11 +3,11 @@ require File.expand_path(File.dirname(__FILE__) + '../../spec_helper')
 module Owasp
   module Esapi
     module Validator
-      describe StringValidator do
-        let(:rule) {Owasp::Esapi::Validator::StringValidator.new("test")}
+      describe StringRule do
+        let(:rule) {Owasp::Esapi::Validator::StringRule.new("test")}
         # We will reset teh rule before every test so previous white/blacklist entries dont affect the other
         # test begin executed
-        before(:all) { @@rule = Owasp::Esapi::Validator::StringValidator.new("test")}
+        before(:all) { @@rule = Owasp::Esapi::Validator::StringRule.new("test")}
 
         describe "Pattern rules" do
           it "should fail to add a nil white list rule" do

@@ -16,7 +16,7 @@ module Owasp
         # 3. we already have an error for the given context
         # 4. the error isnt a ValidationException
         def <<(error)
-          raise ArgumentException.new("Invalid Error") if error.nil?
+          raise ArgumentError.new("Invalid Error") if error.nil?
           if error.instance_of?(ValidationException)
             context = error.context
             raise ArgumentError.new("Invalid context") if context.nil?

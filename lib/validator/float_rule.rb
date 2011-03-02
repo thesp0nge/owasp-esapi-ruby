@@ -1,15 +1,15 @@
 module Owasp
   module Esapi
     module Validator
-      class IntegerValidator < BaseValidator
+      class FloatRule < BaseRule
         attr_accessor :min, :max
 
         def initialize(type,encoder=nil,min=nil,max=nil)
           super(type,encoder)
           @min = min
           @max = max
-          @min = Integer::MIN if min.nil?
-          @max = Integer::MAX if max.nil?
+          @min = Float::MIN if min.nil?
+          @max = Float::MAX if max.nil?
         end
 
         # Validate the input context as an integer
@@ -18,6 +18,7 @@ module Owasp
             if @allow_nil
               return nil
             end
+            puts "::#{input}::"
             user = "#{context}: Input number required"
             log = "Input number required: context=#{context}, input=#{input}"
             raise Owasp::Esapi::ValidationException.new(user,log,context)
@@ -31,11 +32,25 @@ module Owasp
           begin
             user = "Invalid number input must be between #{min} and #{max}: context=#{context}"
             log = "Invalid number input must be between #{min} and #{max}: context=#{context}, input=#{input}"
-            i = Integer(clean)
+            i = Float(clean)
+            #check min
             if i < @min
               raise Owasp::Esapi::ValidationException.new(user,log,context)
             end
+            # check max
             if i > @max
+              raise Owasp::Esapi::ValidationException.new(user,log,context)
+            end
+            # check infinity
+            if i.infinite?
+              user = "#{context}: Invalid number input: context"
+              log = "Invalid double input is infinite context=#{context} input=#{input}"
+              raise Owasp::Esapi::ValidationException.new(user,log,context)
+            end
+            # checknan
+            if i.nan?
+              user = "#{context}: Invalid number input: context"
+              log = "Invalid double input not a number context=#{context} input=#{input}"
               raise Owasp::Esapi::ValidationException.new(user,log,context)
             end
             return i
@@ -46,7 +61,7 @@ module Owasp
           end
         end
 
-        # SThis will call valid and return a 0 if its invalid
+        # This will call valid and return a 0 if its invalid
         def sanitize(context,input)
           result = 0
           begin

@@ -42,7 +42,7 @@ module Owasp
       # %Y - Year with century
       # %Z - Time zone name
       # %% - Literal ``%'' character
-      class DateValidator < BaseValidator
+      class DateRule < BaseRule
         attr :format
         # Create a validator, if no format is specificed
         # We assume %b $d, %Y i.e. September 11, 2001

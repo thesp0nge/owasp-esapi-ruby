@@ -3,8 +3,8 @@ require File.expand_path(File.dirname(__FILE__) + '../../spec_helper')
 module Owasp
   module Esapi
     module Validator
-      describe DateValidator do
-        let(:rule) {Owasp::Esapi::Validator::DateValidator.new("test",nil,nil)}
+      describe DateRule do
+        let(:rule) {Owasp::Esapi::Validator::DateRule.new("test",nil,nil)}
 
         it "should validate September 11, 2001 as a valid" do
           rule.valid?("","September 11, 2001").should be_true
@@ -30,7 +30,7 @@ module Owasp
           "2010-02-27 15:00" => "%Y-%m-%d %H:%M"
         }.each_pair do |k,v|
           it "should validate #{k} as a valid date with #{v} as the format" do
-            rule = Owasp::Esapi::Validator::DateValidator.new("test",nil,v)
+            rule = Owasp::Esapi::Validator::DateRule.new("test",nil,v)
             rule.valid?("",k).should be_true
           end
         end

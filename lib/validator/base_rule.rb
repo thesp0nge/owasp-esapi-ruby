@@ -12,7 +12,7 @@ module Owasp
 
       # A ValidationRule performs syntax and possibly semantic validation of a single
       # piece of data from an untrusted source.
-      class BaseValidator
+      class BaseRule
         attr_accessor :encoder, :name, :allow_nil
         def initialize(name,encoder=nil)
           @name = name

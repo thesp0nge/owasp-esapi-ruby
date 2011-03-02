@@ -6,7 +6,7 @@ module Owasp
 
       # A validator performs syntax and possibly semantic validation of a single
       # piece of string data from an untrusted source.
-      class StringValidator < BaseValidator
+      class StringRule < BaseRule
         attr_writer :min,:max,:canonicalize
 
         # Create an instance of the String vlidator

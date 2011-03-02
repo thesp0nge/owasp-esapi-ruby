@@ -3,8 +3,8 @@ require File.expand_path(File.dirname(__FILE__) + '../../spec_helper')
 module Owasp
   module Esapi
     module Validator
-      describe BaseValidator do
-        let(:rule) {Owasp::Esapi::Validator::BaseValidator.new("test")}
+      describe BaseRule do
+        let(:rule) {Owasp::Esapi::Validator::BaseRule.new("test")}
         it "should remove non whitelist characters" do
           rule.whitelist("12345abcdefghijkmlaaaa","abc").should == "abcaaaa"
         end

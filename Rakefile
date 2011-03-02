@@ -14,6 +14,8 @@ begin
     gem.required_ruby_version = '>= 1.9.2'
     gem.add_development_dependency "rspec", ">= 1.2.9"
     gem.add_development_dependency "yard", ">= 0"
+    gem.add_development_dependency "nokogiri" ">=1.4.4"
+    gem.add_dependency "nokogiri" ">= 1.4.4"
     
     # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
   end

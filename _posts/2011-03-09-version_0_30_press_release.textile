@@ -1,0 +1,23 @@
+---
+title: We've just released our first gem and we're fine
+layout: post
+---
+
+<p>
+I'd like to announce that the first public version (marked as
+0.30.0) of the Owasp Esapi for Ruby gem has been released.
+</p>
+<p>
+We choose to release early, release often so we started pushing out to
+the real world even if we started no more than a month ago.
+We started porting validators, codecs and filters but the road towards 1.0 is far from being close.
+</p>
+<p>	
+Since a lot of work has to be done, we need a lot of talented people, so please go to <a href="http://www.owasp.org/index.php/Projects/Owasp_Esapi_Ruby">the project page</a> and subscribe to the project mailing list.
+</p>
+<p>
+At the <a href="http://www.owasp.org/index.php/Projects/Owasp_Esapi_Ruby">owasp.org</a> webpage you can find link to source repository, with all the information you need to contribute to the project.
+</p>
+<p>
+	Ruby gem is available at <a href="https://rubygems.org/gems/owasp-esapi-ruby">rubygems.org</a> and you can install in your system as easy as <code>gem install owasp-esapi.ruby</code>.
+</p>

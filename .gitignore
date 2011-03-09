@@ -21,3 +21,5 @@ pkg
 ## PROJECT::SPECIFIC
 _site
 *.pxm
+.yardoc/
+doc/

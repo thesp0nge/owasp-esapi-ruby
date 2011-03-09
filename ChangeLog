@@ -1,34 +1,69 @@
--- 1.0.0 -- tagged as v1_0_0.
-	* [EXPECTED September 30, 2011]
-	
--- 1.0.0.rc2 -- tagged as v1_0_0_rc2.
-	* [EXPECTED September 10, 2011]
-	
--- 1.0.0.rc1 -- tagged as v1_0_0_rc1.
-	* [EXPECTED September 1, 2011]
-	
--- 1.0.0.pre2 -- tagged as v1_0_0_pre2.
-	* [EXPECTED August 1, 2011]
-
--- 1.0.0.pre1 -- tagged as v1_0_0_pre1.
-	* [EXPECTED June 15, 2011]
-	* API freeze
-	
--- 0.90.0 -- tagged as v0_90.
-	* [EXPECTED June 1, 2011]
-	
--- 0.80.0 -- tagged as v0_80_0.
-	* [EXPECTED May 15, 2011]
-	
--- 0.70.0 -- 
-	* [EXPECTED April 15, 2011]
-
--- 0.50.0 -- 
-	* [EXPECTED April 1, 2011]
-	* validator/number
-	* sanitizer/xss: implemented rule [5, 6]
-	
--- 0.25.0 -- 
-	* [EXPECTED March 1 2011]
-	* validator/date
-	* sanitizer/xss: implemented rule [2, 3, 4]
+2011-03-02 12:47:57 -0500 Sal Scotto Renamed validators to rule, the container class Validator will be the delegate ot those classes. Also fixed rake file
+2011-03-02 12:37:56 -0500 Sal Scotto Added nokogiri dependency. Nokogiri will be used for HTML/CSS scanning
+2011-02-28 20:35:29 -0500 Sal Scotto Added an int and float validators.
+2011-02-28 17:20:51 -0500 Sal Scotto Remove old date validator code, that is now superceeded by new DateValidator object
+2011-02-28 17:19:49 -0500 Sal Scotto Added date validator. you pass it a dateformat string and it will return a valid Time object.
+2011-02-28 16:08:45 -0500 Sal Scotto Remove old validator spec file
+2011-02-28 11:24:34 +0100 Paolo Perego Merge remote branch 'washu/master'
+2011-02-13 09:54:46 -0500 Paolo Perego Added a baseline validator spec
+2011-02-27 12:18:20 -0500 Sal Scotto Added base validator rule and string validator rule
+2011-02-26 13:51:27 -0500 Sal Scotto Fixed up a funny looking doc entry
+2011-02-26 13:42:25 -0500 Sal Scotto Added in last of the codecs. Ive also gone back and updated the rdoc for all the codecs and the encoder. Formatting and whitespace clean was also performed as well asn upper level formatting and rodc inclusions. I have cpied a good bit of the java esapi docs for class headers, methods since I implmented them to give the same results as it would be in the java world
+2011-02-26 09:44:38 -0500 Sal Scotto Added mysql and oracle codecs
+2011-02-26 09:30:34 -0500 Sal Scotto moved percent codec
+2011-02-26 09:28:58 -0500 Sal Scotto moved some codecs around
+2011-02-26 09:27:36 -0500 Sal Scotto update percent codec
+2011-02-24 23:55:24 -0500 Sal Scotto Stubbing in the executor class
+2011-02-24 23:54:38 -0500 Sal Scotto Added a vbscript codec
+2011-02-24 17:52:52 -0500 Sal Scotto Stubbed in vbscript_codec
+2011-02-24 17:50:54 -0500 Sal Scotto Fixed up more codec to more ruby stylish
+2011-02-23 22:56:05 -0500 Sal Scotto added in more test examples
+2011-02-23 22:08:28 -0500 Sal Scotto more encoder tests
+2011-02-23 20:00:27 -0500 Sal Scotto Changed the overally convuluted tests into dynamic tests do each sequence makes a dyanimc test now
+2011-02-21 10:38:39 -0500 Sal Scotto added os and javascript codecs. Added in spec file for thos codecs and updated encoder spec. TODO: add in some convience methods for encode_for_os and encode_for_js. Refactored some things inside pushable string to be more ruby like in method names. Will keep going over code and refactoing as time permits. Still need a vbscript, oracle, and mysql codecs
+2011-02-20 11:19:04 -0500 Sal Scotto Updated codecs for whitespace
+2011-02-20 11:18:23 -0500 Sal Scotto Renamed url_codec to percent_codec
+2011-02-20 10:54:04 -0500 Sal Scotto Added URL codec and test cases
+2011-02-19 23:22:36 -0500 Sal Scotto Added a HTML entity codec. Added a spec file to test the encoder Added a spec fiel for the codec Cleaned up encoder code and added mroe docs
+2011-02-19 16:17:40 -0500 Sal Scotto Finished cleaning up encoding stuff, strings should be pushed to UTF_8 as they are scanned for processing
+2011-02-19 11:00:58 -0500 Sal Scotto Fixed css codec to properly add a space after encoding a value to terminate properly
+2011-02-19 10:44:42 -0500 Sal Scotto Added some more documentation to teh code
+2011-02-19 09:53:31 -0500 Sal Scotto Added the Encoder Added a top level ESPI module definition that will be used to get references to the currecntly configured esapi setup Added an encoder spec, currently it has enough setup to test css as the only codec available Added an exceptions module, will house the various exception classes that can be raised
+2011-02-19 08:22:55 -0500 Sal Scotto Merge branch 'master' of https://github.com/thesp0nge/owasp-esapi-ruby
+2011-02-18 09:51:58 +0100 Paolo Perego Working on validating EU date formatted
+2011-02-18 00:16:22 -0500 Sal Scotto Added a CSS codec. Flow should go from Validator --> execute all relevant codecs to decode/encode the inputs BEFORE Applying all other rules. More codecs to come i.e. Base64, HTMLEntity, Hex, JavaScript, XMLEntity, Os specific i.e. Windows,Unix and Database level codecs to force escapes
+2011-02-17 19:27:50 -0500 Sal Scotto Merge branch 'master' of https://github.com/thesp0nge/owasp-esapi-ruby
+2011-02-17 18:02:55 +0100 Paolo Perego Now also dates written in US long format are recognized
+2011-02-17 09:14:39 +0100 Paolo Perego Now date validates MMM DD, YYY Added an ISSUE file to track remotely issues
+2011-02-17 08:05:01 +0100 Paolo Perego Added a ChangeLog and written some more stuff into README Zipcode had a wrong optional argument check that caused a null pointer exception. Date now validates good 'MM/DD/YYYY'
+2011-02-16 21:32:07 -0500 Sal Scotto Merge branch 'master' of https://github.com/thesp0nge/owasp-esapi-ruby
+2011-02-16 19:18:12 +0100 Paolo Perego Work over validators
+2011-02-16 09:47:00 +0100 Paolo Perego Fixed boolean operators
+2011-02-16 09:21:23 +0100 Paolo Perego Changed validator method from validate to valid? Added basic date validator
+2011-02-15 14:18:29 +0100 Paolo Perego Fixed typo
+2011-02-15 13:06:13 +0100 Paolo Perego Owasp Esapi Ruby will require at least 1.9.2 ruby version due to the usage of regex patterns only available with the new regex engine
+2011-02-15 12:59:06 +0100 Paolo Perego Now generic_validator handles validation method and both email than zipcode validators are run against it
+2011-02-15 11:56:08 +0100 Paolo Perego Removed a redundant method since matcher is an attr_accessor
+2011-02-15 01:53:09 -0800 Paolo Perego Added Daniele and Sal email addresses
+2011-02-15 09:08:07 +0100 Paolo Perego Added a generic validator class with a validate method. All specific validator will inehrit code from this class.
+2011-02-15 08:28:32 +0100 Paolo Perego Added a generic validator class with a validate method. All specific validator will inehrit code from this class.
+2011-02-15 08:25:39 +0100 Paolo Perego Modified boolean validation test
+2011-02-15 08:23:18 +0100 Paolo Perego Version bumped to 0.5.0. It means approx 5% of the work done.
+2011-02-15 08:21:42 +0100 Paolo Perego Renamed Sal Scotto rspec file with a filename that does not include it into running tasks (I want to see true failing tests). Let's use this good rspec as skeleton. Added an email address pattern rspec file. Implemented email address pattern validation.
+2011-02-14 18:41:49 -0500 Sal Scotto Merge branch 'master' of https://github.com/thesp0nge/owasp-esapi-ruby
+2011-02-14 18:26:36 +0100 Paolo Perego Fixed an initialization issue in XSS Added some Zip code spec Renamed Sal's validator skeleton not to be included in rake spec task
+2011-02-14 18:23:26 +0100 Paolo Perego Fixed (C) statement. Added a private filtering routine called by the public API
+2011-02-14 17:05:59 +0100 Paolo Perego (C) must be given to Owasp foundation
+2011-02-13 09:54:46 -0500 Paolo Perego Added a baseline validator spec
+2011-02-14 16:47:14 +0100 Paolo Perego Modified namespace. Now it's Owasp::Esapi
+2011-02-14 07:30:46 -0500 Sal Scotto Merge branch 'master' of https://github.com/thesp0nge/owasp-esapi-ruby
+2011-02-14 09:20:02 +0100 Paolo Perego Zipcode validator now works with Italian regular expression, must fix the US one
+2011-02-14 09:19:01 +0100 Paolo Perego Added AUTHORS file. Zipcode validator now works with Italian regular expression. Not the US one right now
+2011-02-13 16:56:26 +0100 Paolo Perego Renamed XSS sanitizer in a proper namespace. Added more test cases and created a basic (and not working right now) zip code validator.
+2011-02-13 09:54:46 -0500 Sal Scotto Added a baseline validator spec
+2011-02-12 17:35:01 +0100 Paolo Perego First real commit with 2 xss rspec and first xss sanitizing implementation. This is *just the beginning*
+2011-01-18 12:47:01 +0100 Paolo Perego Added _site and pixelmator file
+2011-01-14 14:58:47 +0100 Paolo Perego Added kickstarting info for Owasp Summit
+2010-06-01 13:25:38 +0200 Paolo Perego Some Typos
+2010-05-31 12:29:52 +0200 Paolo Perego Licensed as "new BSD" project with a starting README information
+2010-05-31 12:21:17 +0200 Paolo Perego Initial commit to owasp-esapi-ruby.

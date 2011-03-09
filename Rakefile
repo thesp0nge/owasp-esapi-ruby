@@ -55,3 +55,9 @@ rescue LoadError
   end
 end
 
+namespace :prepare do
+  desc 'Generate ChangeLog'
+  task :changelog do
+    system ('git log --format="%ai %cn %s" > ChangeLog')
+  end
+end

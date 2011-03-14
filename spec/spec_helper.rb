@@ -5,6 +5,8 @@ require 'owasp-esapi-ruby'
 require 'rspec'
 require 'rspec/autorun'
 
+Owasp::Esapi.security_config.resources["antisamy"] = "#{File.dirname(__FILE__)}/antisamy-esapi.xml"
+
 RSpec.configure do |config|
   config.color_enabled = true
 end

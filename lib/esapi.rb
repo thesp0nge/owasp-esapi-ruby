@@ -20,20 +20,28 @@ end
 module Owasp
   # Configuration class
   class Configuration
-    attr_accessor :logger, :encoder
+    attr_accessor :logger, :encoder, :resources
+
+    def initialize
+      @resources = {}
+    end
     # Is intrustion detectione nabled?
     def ids?
       return true
     end
     # Get the encoder class anem
     def get_encoder_class
-
+    end
+    def resource(resource_key)
+      return @resources[resource_key]
     end
   end
   # Logging class stub
   class Logger
     def warn(msg)
       #puts "WARNING: #{msg}"
+    end
+    def info(level,msg)
     end
   end
   # Esapi Root module

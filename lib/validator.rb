@@ -12,6 +12,7 @@ module Owasp
       # Encoder to use for the validator
       @@encoder ||= Owasp::Esapi.encoder
 
+      #Change the active encoder used by the validator
       def self.encoder=(e)
         raise ArgumentError, "invalid encoder" if e.nil?
         raise ArgumentError unless e.is_a?(Owasp::Esapi::Encoder)
@@ -21,7 +22,7 @@ module Owasp
       # Calls validate_input and returns true if no exceptions are thrown.
       def self.valid_string?(context,input,type,max_len,allow_nil, canonicalize = true)
         begin
-          validate_string(context,input,type,max_len,allow_nil,true)
+          valid_string(context,input,type,max_len,allow_nil,true)
           return true
         rescue Exception => e
           return false
@@ -31,7 +32,7 @@ module Owasp
       # Returns canonicalized and validated input as a String. Invalid input will generate a descriptive ValidationException,
       # and input that is clearly an attack will generate a descriptive IntrusionException.
       # if the error_list is given, exceptions will be added to the list instead of being thrown
-      def self.validate_string(context,input,type,max_len,allow_nil, canonicalize = true, error_list = nil)
+      def self.valid_string(context,input,type,max_len,allow_nil, canonicalize = true, error_list = nil)
         begin
           string_rule = Owasp::Esapi::Validator::StringRule.new(type,@@encoder)
           p = Owasp::Esapi.security_config.pattern(type)
@@ -53,6 +54,36 @@ module Owasp
         end
         return ""
       end
+
+
+      # Calls valid_date and returns true if no exceptions are thrown.
+      def self.valid_date?(context,input, format, allow_nil)
+        begin
+          valid_date(context,input,format,allow_nil)
+          return true
+        rescue Exception => e
+          return false
+        end
+      end
+
+      # Returns a valid date as a Date. Invalid input will generate a descriptive ValidationException, and input that is clearly an attack
+      # will generate a descriptive IntrusionException.
+      # if the error_list is given, exceptions will be added to the list instead of being thrown
+      def self.valid_date(context, input, format, allow_nil, error_list = nil)
+        begin
+          date_rule = DateRule.new("SimpleDate",@@encoder,format)
+          date_rule.allow_nil = allow_nil
+          date_rule.valid(context,input)
+        rescue ValidationException => e
+          if error_list.nil?
+            raise e
+          else
+            error_list << e
+          end
+        end
+        return nil
+      end
+
     end
   end
 end

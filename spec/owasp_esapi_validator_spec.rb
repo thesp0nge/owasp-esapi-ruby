@@ -34,6 +34,8 @@ module Owasp
           "URL"=>/^(ht|f)tp(s?)\:\/\/[0-9a-zA-Z]([-.\w]*[0-9a-zA-Z])*(:(0-9)*)*(\/?)([a-zA-Z0-9\-\.\?\,\:\'\/\\\\+=&amp;%\$#_]*)?$/,
           "CreditCard"=>/^(\d{4}[- ]?){3}\d{4}$/,
           "SSN"=>/^(?!000)([0-6]\d{2}|7([0-6]\d|7[012]))([ -]?)(?!00)\d\d\3(?!0000)\d{4}$/,
+          "USZipCode" => "^\\d{5}(\\-\\d{4})?$",
+          "ItalianZipCode" => "^\\d{5}$",
         }.each_pair do |name,expression|
           Owasp::Esapi.security_config.add_pattern(name,expression)
         end

@@ -24,6 +24,7 @@ module Owasp
 
     def initialize
       @resources = {}
+      @patterns = {}
     end
     # Is intrustion detectione nabled?
     def ids?
@@ -35,6 +36,13 @@ module Owasp
     def resource(resource_key)
       return @resources[resource_key]
     end
+    def pattern(name)
+      @patterns[name]
+    end
+    def add_pattern(name,regex)
+      @patterns[name] = regex
+    end
+
   end
   # Logging class stub
   class Logger

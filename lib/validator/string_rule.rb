@@ -38,7 +38,7 @@ module Owasp
           output = StringIO.open('','w')
           $stderr = output
           begin
-            r = /#{p}/
+            r = /#{p}/ui
           ensure
             output.close
             $stderr = STDERR

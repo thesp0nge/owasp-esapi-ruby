@@ -2,8 +2,12 @@ require 'antisamy'
 module Owasp
   module Esapi
     module Validator
+
+      # A validator performs syntax and possibly semantic validation of a single
+      # piece of data from an untrusted source. This rule invokes AntiSamy sanitization
       class HTMLRule < BaseRule
 
+        # Setup the HTML rule
         def initialize(type,encoder = nil,whitelist_pattern = nil)
           super(type,encoder)
           @string_rule = StringRule.new(type,encoder,whitelist_pattern)
@@ -16,7 +20,17 @@ module Owasp
           end
         end
 
+        # set the max length of input
+        def max=(length)
+          @string_rule.max = length
+        end
 
+        # enable the canonicalization flag
+        def canonicalize=(v)
+          @string_rule.canonicalize = v
+        end
+
+        # Remove any disallowed html form the string
         def sanitize(context,input)
           safe = ''
           begin
@@ -26,6 +40,7 @@ module Owasp
           safe
         end
 
+        # Invoke antisamy on the HTML cleaning out anything that didnt match the rules
         def antisamy(context,input)
           if input.nil?
             if @allow_nil
@@ -53,11 +68,12 @@ module Owasp
             return clean.strip
           rescue Exception => e
             user = "#{context}: Invalid HTML input"
-            log = "Invalid HTML input: context=#{context} error=#{e}"
-            raise Owasp::Esapi::ValidationException.new(user,log,context)
+            log = "Invalid HTML input: context=#{context} error=#{e.message}"
+            raise Owasp::Esapi::ValidationException.new(user,log,context,e)
           end
         end
 
+        # Validate the input context as html
         def valid(context,input)
           antisamy(context,input)
         end

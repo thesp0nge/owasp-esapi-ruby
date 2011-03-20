@@ -12,7 +12,7 @@ module Owasp
           @max = Float::MAX if max.nil?
         end
 
-        # Validate the input context as an integer
+        # Validate the input context as a float
         def valid(context,input)
           if input.nil?
             if @allow_nil

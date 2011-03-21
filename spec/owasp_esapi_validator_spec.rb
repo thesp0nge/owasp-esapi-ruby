@@ -26,7 +26,7 @@ module Owasp
           "HTTPURI"=>"^[a-zA-Z0-9()\\-=\\*\\.\\?;,+\\/:&_ ]*$",
           "HTTPURL"=>"^.*$",
           "HTTPJSESSIONID"=>"^[A-Z0-9]{10,30}$",
-          "FileName"=>'^[a-zA-Z0-9!@#$%^&{}\[\]()_+\-=,.~\'` ]{1,255}$',
+          "FileName"=>/[a-zA-Z0-9!@#$\%^&{}\[\]()_+\-=,.~\'` ]{1,255}$/,
           "DirectoryName"=>'^[a-zA-Z0-9:/\\\\!@#$%^&{}\[\]()_+\-=,.~\'` ]{1,255}$',
           "SafeString"=>%w{^[.\\p{Alnum}\\p{Space}]{0,1024}$},
           "Email"=>"^[A-Za-z0-9._%\-]+@[A-Za-z0-9.\-]+\\.[a-zA-Z]{2,4}$",
@@ -40,7 +40,13 @@ module Owasp
           Owasp::Esapi.security_config.add_pattern(name,expression)
         end
       end
-
+      
+      describe "-FileName Tests-" do
+        it "should check filename.zip as valid with zip as allowed extension" do
+          validator.valid_file_name?("test","filename.zip",%w[zip .zip doc .doc],false).should be_true
+        end
+      end
+      
       describe "-HTML Tests-" do
         {
           "Test. <script>alert(document.cookie)</script>" => "Test.",

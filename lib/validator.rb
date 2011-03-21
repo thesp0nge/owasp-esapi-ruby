@@ -162,7 +162,59 @@ module Owasp
         return ""
       end
 
-      # Filename
+      # Calls valid_file_name and returns true if no exceptions are thrown. 
+      def self.valid_file_name?(context, input, allowed_extensions, allow_nil)
+        begin
+           valid_file_name(context,input,allowed_extensions,allow_nil)
+           return true
+         rescue Exception => e
+           puts e
+           return false
+         end
+      end
+      
+      # Returns a canonicalized and validated file name as a String. Implementors should check for allowed file extensions here, as well as allowed file name characters, as declared in "ESAPI.properties". Invalid input
+      # will generate a descriptive ValidationException, and input that is clearly an attack
+      # will generate a descriptive IntrusionException. 
+      # if the error_list is given, exceptions will be added to the list instead of being thrown   
+      def self.valid_file_name(context, input, allowed_extensions, allow_nil, error_list = nil)
+        
+    		# detect path manipulation
+    		begin
+          # check extenion list
+          if allowed_extensions.nil? or allowed_extensions.empty?
+      			raise ValidationException.new("Internal Error", "getValidFileName called with an empty or null list of allowed Extensions, therefore no files can be uploaded", context);
+          end
+    		  # Check for nil
+          if input.nil?
+            if allow_nil
+              return nil
+            end
+            user = "#{context}: Input file name required"
+            log = "Input file name required: context=#{context}, input=#{input}"
+            raise ValidationException.new(user,log,context)
+          end
+          filename = File.expand_path(input)
+          dirname = File.dirname(filename)
+          base_name = File.basename(filename)
+          clean_name = valid_string(context,base_name,"FileName",255,false)
+          raise ValidationException.new( "#{context} : Invalid file name", "Invalid directory name does not match the canonical path: context=#{context}, input=#{input}",context) unless filename.index(dirname)
+          # check extensions
+          allowed_extensions.each do |ext|
+            if File.extname(clean_name).include?(ext) 
+              return clean_name
+            end
+          end
+          raise ValidationException.new( "context : Invalid file name does not have valid extension ( #{allowed_extensions})", "Invalid file name does not have valid extension ( #{allowed_extensions} ): context=#{context}, input=#{input}", context )
+  		  rescue ValidationException => e
+  		    if error_list.nil?
+            raise e
+          else
+            error_list << e
+          end
+		    end
+      end
+      
       # Integer
       # Float
       # FileContents

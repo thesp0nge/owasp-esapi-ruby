@@ -117,12 +117,12 @@ module Owasp
 
       # Calls valid_directory and returns true if no exceptions are thrown.
       def self.valid_directory?(context, input, parent, allow_nil)
-         begin
-            valid_directory(context,input,parent,allow_nil)
-            return true
-          rescue Exception => e
-            return false
-          end
+        begin
+          valid_directory(context,input,parent,allow_nil)
+          return true
+        rescue Exception => e
+          return false
+        end
       end
 
       # Returns a canonicalized and validated directory path as a String, provided that the input
@@ -162,30 +162,28 @@ module Owasp
         return ""
       end
 
-      # Calls valid_file_name and returns true if no exceptions are thrown. 
+      # Calls valid_file_name and returns true if no exceptions are thrown.
       def self.valid_file_name?(context, input, allowed_extensions, allow_nil)
         begin
-           valid_file_name(context,input,allowed_extensions,allow_nil)
-           return true
-         rescue Exception => e
-           puts e
-           return false
-         end
+          valid_file_name(context,input,allowed_extensions,allow_nil)
+          return true
+        rescue Exception => e
+          return false
+        end
       end
-      
+
       # Returns a canonicalized and validated file name as a String. Implementors should check for allowed file extensions here, as well as allowed file name characters, as declared in "ESAPI.properties". Invalid input
       # will generate a descriptive ValidationException, and input that is clearly an attack
-      # will generate a descriptive IntrusionException. 
-      # if the error_list is given, exceptions will be added to the list instead of being thrown   
+      # will generate a descriptive IntrusionException.
+      # if the error_list is given, exceptions will be added to the list instead of being thrown
       def self.valid_file_name(context, input, allowed_extensions, allow_nil, error_list = nil)
-        
-    		# detect path manipulation
-    		begin
+        # detect path manipulation
+        begin
           # check extenion list
           if allowed_extensions.nil? or allowed_extensions.empty?
-      			raise ValidationException.new("Internal Error", "getValidFileName called with an empty or null list of allowed Extensions, therefore no files can be uploaded", context);
+            raise ValidationException.new("Internal Error", "valid_file_name called with an empty or null list of allowed Extensions, therefore no files can be uploaded", context);
           end
-    		  # Check for nil
+          # Check for nil
           if input.nil?
             if allow_nil
               return nil
@@ -201,30 +199,129 @@ module Owasp
           raise ValidationException.new( "#{context} : Invalid file name", "Invalid directory name does not match the canonical path: context=#{context}, input=#{input}",context) unless filename.index(dirname)
           # check extensions
           allowed_extensions.each do |ext|
-            if File.extname(clean_name).include?(ext) 
+            if File.extname(clean_name).include?(ext)
               return clean_name
             end
           end
           raise ValidationException.new( "context : Invalid file name does not have valid extension ( #{allowed_extensions})", "Invalid file name does not have valid extension ( #{allowed_extensions} ): context=#{context}, input=#{input}", context )
-  		  rescue ValidationException => e
-  		    if error_list.nil?
+        rescue ValidationException => e
+          if error_list.nil?
             raise e
           else
             error_list << e
           end
-		    end
+        end
       end
-      
-      # Integer
-      # Float
-      # FileContents
-      # Upload
-      # ItemList
-      # Http Parameters
-      # Printable
-      # Relocation Path
 
+      # Calls valid_integer and returns true if no exceptions are thrown.
+      def self.valid_integer?(context, input, min, max, allow_nil)
+        begin
+          valid_integer(context,input,min,max,allow_nil)
+          return true
+        rescue Exception => e
+          return false
+        end
+      end
 
+      # Returns a validated integer. Invalid input
+      # will generate a descriptive ValidationException, and input that is clearly an attack
+      # will generate a descriptive IntrusionException.
+      # if the error_list is given, exceptions will be added to the list instead of being thrown
+      def self.valid_integer(context, input, min, max, allow_nil, error_list = nil)
+        begin
+          rule = IntegerRule.new("number",@@encoder,min,max)
+          rule.allow_nil = allow_nil
+          return rule.valid(context,input)
+        rescue ValidationException => e
+          if error_list.nil?
+            raise e
+          else
+            error_list << e
+          end
+        end
+        return 0
+      end
+
+      # Calls valid_float and returns true if no exceptions are thrown.
+      def self.valid_float?(context, input, min, max, allow_nil)
+        begin
+          valid_float(context,input,min,max,allow_nil)
+          return true
+        rescue Exception => e
+          return false
+        end
+      end
+
+      # Returns a validated ifloat. Invalid input
+      # will generate a descriptive ValidationException, and input that is clearly an attack
+      # will generate a descriptive IntrusionException.
+      # if the error_list is given, exceptions will be added to the list instead of being thrown
+      def self.valid_float(context, input, min, max, allow_nil, error_list = nil)
+        begin
+          rule = FloatRule.new("number",@@encoder,min,max)
+          rule.allow_nil = allow_nil
+          return rule.valid(context,input)
+        rescue ValidationException => e
+          if error_list.nil?
+            raise e
+          else
+            error_list << e
+          end
+        end
+        return 0
+      end
+
+      # call valid_file_contents and returns true if no exceptions are thrown.
+      def self.valid_file_contents?(context, input_io, max_bytes, allow_nil)
+        begin
+          valid_file_content(context, input_io, max_bytes, allow_nil)
+          return true
+        rescue Exception => e
+          return false
+        end
+      end
+
+      # Returns validated file content as a byte array. This is a good place to check for max file size, allowed character sets, and do virus scans.  Invalid input
+      # will generate a descriptive ValidationException, and input that is clearly an attack
+      # will generate a descriptive IntrusionException.
+      # if the error_list is given, exceptions will be added to the list instead of being thrown
+      def self.valid_file_content(context, input_io, max_bytes, allow_nil, error_list = nil)
+        begin
+          if input_io.nil?
+            if allow_nil
+              return nil
+            end
+            user = "#{context}: Input required"
+            log = "Input required: context=#{context}, input=#{input_io}"
+            raise ValidationException.new(user,log,context)
+          end
+          max_allowed = Esapi.security_config.max_file_upload
+          input_bytes = 0
+          input_io.bytes.each do |b|
+            input_bytes += 1
+          end
+          input_io.rewind
+
+          raise ValidationException.new("#{context}: Invalid file content can not exceed #{max_allowed} bytes", "Exceeded ESAPI max length", context ) if input_bytes > max_allowed
+          raise ValidationException.new( "#{context}: Invalid file content can not exceed #{max_bytes} bytes", "Exceeded maxBytes ( #{input_bytes} )", context ) if input_bytes > max_bytes
+          if Esapi.security_config.file_scanner
+            begin
+              return Esapi.security_config.file_scanner.scan(input_io)
+            rescue Exception => e
+              raise ValidationException.new("#{context}: Invalid file content invalid", "Virus scanner failed on content", context)
+            end
+          end
+          input_io.rewind
+          return input_io
+        rescue ValidationException => e
+          if error_list.nil?
+            raise e
+          else
+            error_list << e
+          end
+        end
+        return []
+      end
     end
   end
 end

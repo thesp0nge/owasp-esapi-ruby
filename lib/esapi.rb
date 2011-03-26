@@ -43,6 +43,19 @@ module Owasp
       @patterns[name] = regex
     end
 
+    def allowed_extenions
+      %w[.zip .pdf .doc .docx .ppt .pptx .tar .gz. tgz. rar .xls,.rtf .txt .xml .exe .dll]
+    end
+
+    def max_file_upload
+      return 1024
+    end
+
+    # Return a class that can handle a virus scan
+    def file_scanner
+      return nil
+    end
+
   end
   # Logging class stub
   class Logger

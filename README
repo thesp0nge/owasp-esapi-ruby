@@ -9,6 +9,8 @@ Ruby is now a famous programming language due to its Rails framework developed b
 
 Despite Rails diffusion, there are a lot of Web framework out there that allow people to write web apps in Ruby (merb, sinatra, vintage) [http://accidentaltechnologist.com/ruby/10-alternative-ruby-web-frameworks/]. Owasp Esapi Ruby wants to bring all Ruby deevelopers a gem full of Secure APIs they can use whatever the framework they choose.
 
+https://secure.travis-ci.org/thesp0nge/owasp-esapi-ruby.png
+
 == Why supporting only Ruby 1.9.2 and beyond?
 
 The OWASP Esapi Ruby gem will require at least version 1.9.2 of Ruby interpreter to make sure to have full advantages of the newer language APIs.
